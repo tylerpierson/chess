@@ -1,0 +1,57 @@
+html {
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Avengeance';
+    src: url('Avengeance-YolO.ttf');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkgrey;
+}
+
+.heading {
+    font-size: 4rem;
+    text-shadow: red 2px 1px 0;
+    margin: 0;
+}
+
+.board-bank-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1rem solid brown;
+}
+
+.player-one-bank, .player-two-bank {
+    width: 30rem;
+    height: 72rem;
+    background-color: red;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.square {
+    width: 9rem;
+    height: 9rem;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
