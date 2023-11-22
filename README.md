@@ -8,3 +8,14 @@
     3.2 Create each pieces 
     3.3 Assign each piece and initial position
     3.4 Create a movement function to move the pieces based on their parameters
+
+
+State Variables
+Player Turn: 1/-1
+Board: 2D Array
+    null/0 -> No player at cell
+    1/-1 -> Player at cell
+Winner:
+    null -> No winner
+    1/-1 -> Winning Player
+    'stalemate' -> Stalemate

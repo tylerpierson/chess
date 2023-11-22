@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 10px;
 }
@@ -7,8 +11,6 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
-    font-family: 'Avengeance';
-    src: url('Avengeance-YolO.ttf');
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,10 +18,23 @@ body {
     background-color: darkgrey;
 }
 
+/* Heading styling */
 .heading {
+    font-family: 'Avengeance';
+    src: url('Avengeance-YolO.ttf');
     font-size: 4rem;
     text-shadow: red 2px 1px 0;
     margin: 0;
+}
+
+/* Bank styling */
+.bank-heading {
+    text-align: center;
+    font-family: 'Avengeance';
+    src: url('Avengeance-YolO.ttf');
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: black 2px 1px 0;
 }
 
 .board-bank-container {
@@ -31,10 +46,11 @@ body {
 
 .player-one-bank, .player-two-bank {
     width: 30rem;
-    height: 72rem;
+    height: 56rem;
     background-color: red;
 }
 
+/* Board styling */
 .board {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -42,8 +58,14 @@ body {
 }
 
 .square {
-    width: 9rem;
-    height: 9rem;
+    width: 7rem;
+    height: 7rem;
+}
+
+.square:hover {
+    cursor: pointer;
+    transform: scale(1.15);
+    border: .3rem solid gold;
 }
 
 .light {
