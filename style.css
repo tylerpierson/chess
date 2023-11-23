@@ -47,7 +47,14 @@ body {
 .player-one-bank, .player-two-bank {
     width: 30rem;
     height: 56rem;
+}
+
+.player-one-bank {
     background-color: red;
+}
+
+.player-two-bank {
+    background-color: blue;
 }
 
 /* Board styling */
@@ -60,6 +67,9 @@ body {
 .square {
     width: 7rem;
     height: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .square:hover {
@@ -69,11 +79,42 @@ body {
 }
 
 .light {
-    background-color: white;
+    background-color: beige;
     color: black;
 }
 
 .dark {
-    background-color: black;
+    background-color: maroon;
     color: white;
 }
+
+/* Button Styling */
+button {
+    width: 10rem;
+    height: 5rem;
+    border-radius: 3rem;
+    border: none;
+    background-color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: black;
+    transition: .7s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid red;
+    color: red;
+    box-shadow: 0 0 30px red;
+    transition: .7s ease;
+    animation: tilt-shaking 0.15s infinite;
+}
+
+@keyframes tilt-shaking {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+    }
