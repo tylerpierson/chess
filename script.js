@@ -156,31 +156,15 @@ function renderControls() {
 // Create move potentials
 squares.forEach(square => {
     square.addEventListener('click', () => {
-        const img = square.querySelector('img'); // Assuming the image is a child element of the square
-        if (img && img.src === PIECES['1'].img) {
-            console.log('white pawn');
-        } else if (img && img.src === PIECES['2'].img) {
-            console.log('white king');
-        } else if (img && img.src === PIECES['3'].img) {
-            console.log('white queen');
-        } else if (img && img.src === PIECES['4'].img) {
-            console.log('white bishop');
-        } else if (img && img.src === PIECES['5'].img) {
-            console.log('white knight');
-        } else if (img && img.src === PIECES['6'].img) {
-            console.log('white rook');
-        } else if (img && img.src === PIECES['-1'].img) {
-            console.log('black pawn');
-        } else if (img && img.src === PIECES['-2'].img) {
-            console.log('black king');
-        } else if (img && img.src === PIECES['-3'].img) {
-            console.log('black queen');
-        } else if (img && img.src === PIECES['-4'].img) {
-            console.log('black bishop');
-        } else if (img && img.src === PIECES['-5'].img) {
-            console.log('black knight');
-        } else if (img && img.src === PIECES['-6'].img) {
-            console.log('black rook');
+        const img = square.querySelector('img');
+        if (img) {
+            const clickedImgSrc = img.src;
+            for (const key in PIECES) {
+                if (PIECES.hasOwnProperty(key) && PIECES[key].img === clickedImgSrc) {
+                    console.log(PIECES[key].color, PIECES[key].name);
+                    break; // Stop the loop once the match is found
+                }
+            }
         }
     });
 });
