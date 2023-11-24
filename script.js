@@ -153,6 +153,8 @@ function renderControls() {
     !winner ? playAgainBtn.style.visibility = 'hidden':playAgainBtn.style.visibility = 'visible' 
 }
 
+
+let squareClicked = false
 // Create move potentials
 squares.forEach(square => {
     square.addEventListener('click', () => {
@@ -162,6 +164,7 @@ squares.forEach(square => {
             for (const key in PIECES) {
                 if (PIECES.hasOwnProperty(key) && PIECES[key].img === clickedImgSrc) {
                     console.log(PIECES[key].color, PIECES[key].name);
+                    squareClicked = true
                     break; // Stop the loop once the match is found
                 }
             }
