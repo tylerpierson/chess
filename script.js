@@ -158,19 +158,18 @@ function renderBoard() {
 
             // Within the renderBoard function, use a forEach function to identify which type of game piece
             // has been selected when the square is clicked
-            // If the rowVal does not equal zero, then the function will determine what value it contains
-            if (rowVal !==0) {
-                // By using Object.keys and passing in the PIECES const, I can run a forEach function to
-                // seperate each individual key
-                Object.keys(PIECES).forEach(key => {
-                    // For each cell, I want to add a click event listener
-                    cellEl.addEventListener('click', function(){
-                        // Create a variable to store the PIECES color concatenated with the PIECES name
-                        const currentPiece = PIECES[rowVal].color + ' ' + PIECES[rowVal].name;
-                        console.log(currentPiece)
-                    })
-                });
-            }
+            // For each cell, I want to add a click event listener
+            cellEl.addEventListener('click', function () {
+                // If the rowVal does not equal zero, then the function will determine what value it contains
+                if (rowVal !== 0) {
+                    // Create a variable to store the PIECES color concatenated with the PIECES name
+                    const currentPiece = PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name;
+                    console.log(currentPiece);
+                    if (PIECES[rowVal.toString()].name === 'rook') {
+                        console.log('YES!');
+                    }
+                }
+            });
         });
     });
 }
