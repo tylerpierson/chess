@@ -1,16 +1,17 @@
 // Constants
-const squares = document.querySelectorAll('.square')
-
+// Set color constants to change with whatever player's turn it is / When a player wins
 const COLORS = {
     '1': 'red',
     '-1': 'blue'
 }
 
+// Set a constant to give each player a set number of 1 or -1
 const PLAYERS = {
     '1': 'player 1',
     '-1': 'player 2'
 }
 
+// Create a PIECES object to store each type of game piece along with their color and image src
 const PIECES = {
     '1': {
         name: 'pawn',
@@ -75,20 +76,26 @@ const PIECES = {
 }
 
 // State Variables
-let turn; // This will be 1 or -1
-let board; // This will be a 2d rendering of the game board
-let winner; // This will be set to null, 1 or -1
-// Cached Elements
-const playAgainBtn = document.querySelector('button')
+let turn; // This will determine which players turn it is when the turn variable is either 1 or -1
+let board; // This will be a 2d rendering of the game board when creating a board within an array
+let winner; // This will be set to null. Player will be determined by either 1, -1, or 'stalemate'
 
-// Event Listeners
+// Declaration of variables to manipulate within the DOM
+const playAgainBtn = document.querySelector('button')
+const squares = document.querySelectorAll('.square')
 const messageEl = document.querySelector('.player-turn')
 
 // Functions
+// When this init function is ran, it will render the board with all game pieces in their initial positions
 init();
 
 function init() {
+    // The turn variable is set to 1 when the init function is ran so the game starts with player 1 having
+    // the first turn
     turn = 1
+
+    // When the init function is ran, the board is rendered using this 2d array with all game pieces in
+    // their initial positions
     board = [
         //   A  B  C  D  E  F  G  H
             [6, 1, 0, 0, 0, 0, -1, -6], // 8
@@ -100,74 +107,94 @@ function init() {
             [5, 1, 0, 0, 0, 0, -1, -5], // 2
             [6, 1, 0, 0, 0, 0, -1, -6] // 1
         ];
-    winner = null;
-    render();
-}
 
-function pieceSelection(e) {
-    console.log(e.target);
+    // The game is initiated with the winner set to 'null' until the game ends
+    winner = null;
+
+    // The render function is ran to initiate all the functions that create the game (i.e renderBoard(), 
+    // renderMessage(), and renderControls)
+    render();
 }
 
 // This function will update the state of our application and render it to the DOM
 function render() {
+    // Run all rending functions
     renderBoard();
     renderMessage();
     renderControls();
 }
 
+// Create a renderBoard function
 function renderBoard() {
+    // Run a forEach function that will take parameters of the colArr(column array that displays each
+    // individual column) and the colIdx (column index which displays each column as an indexed number)
     board.forEach(function(colArr, colIdx) {    
+        // For each column run another function that takes rowVal(row value that lists out each value in
+        // each row) and a rowIdx(row index that lists out each index of each row on the board)
         colArr.forEach(function(rowVal, rowIdx) {
+            // Create a variable cellId that takes the column index and the row index to pinpoint a specific
+            // location on the game board using the ID created in the HTML for each square of the board
             const cellId = `c${colIdx}r${rowIdx}`;
+            // Use a variable to store each individual cell on the board by selecting it by its ID
             const cellEl = document.getElementById(cellId);
 
-            if (rowVal !== 0) { // Check if there's a piece on this cell
-                const piece = PIECES[rowVal.toString()]; // Get piece info based on board value
-                if (piece) {
-                    const imgEl = document.createElement('img');
-                    imgEl.src = piece.img;
-                    imgEl.style.width = '6rem';
-                    cellEl.innerHTML = ''; // Clear cell before appending image
-                    cellEl.appendChild(imgEl);
-                }
-            } else {
-                cellEl.innerHTML = ''; // Clear cell if there's no piece
+            // Create an if statement w/in the renderBoard function to place each gamepiece image on its
+            // designated cell
+            // If the rowVal does not equal zero, then it needs to run a function to identify which game
+            // piece belongs on the cell
+            if (rowVal !== 0) {
+                // Create a variable to store each game piece's information as a string (i.e. name, color, 
+                // and image src)
+                const piece = PIECES[rowVal.toString()];
+                // store an image element in a variable
+                const imgEl = document.createElement('img');
+                // Give the new image element a value of piece.img using the .src method
+                imgEl.src = piece.img;
+                // Set the width of the images to 6rem
+                imgEl.style.width = '6rem';
+                // Append the image element to the cell element
+                cellEl.appendChild(imgEl);
+            }
+
+            // Within the renderBoard function, use a forEach function to identify which type of game piece
+            // has been selected when the square is clicked
+            // If the rowVal does not equal zero, then the function will determine what value it contains
+            if (rowVal !==0) {
+                // By using Object.keys and passing in the PIECES const, I can run a forEach function to
+                // seperate each individual key
+                Object.keys(PIECES).forEach(key => {
+                    // For each cell, I want to add a click event listener
+                    cellEl.addEventListener('click', function(){
+                        // Create a variable to store the PIECES color concatenated with the PIECES name
+                        const currentPiece = PIECES[rowVal].color + ' ' + PIECES[rowVal].name;
+                        console.log(currentPiece)
+                    })
+                });
             }
         });
     });
 }
 
-
+// Create a renderMessage function that will change the messages in the game depending on who's turn it is
+// and who has won (or if there is a stalemate)
 function renderMessage() {
+    // Create an if statement to see if the 'winner' is equal to 'stalemate'
     if(winner === 'stalemate') {
+        // The message element should contain a textContent of STALEMATE
         messageEl.textContent = `STALEMATE!`
+    // Create an else if statement that checks for 'winner'
     } else if(winner) {
+        // The message element should render a message with a span tag to change the color of the player's name
+            // To change player's color, use COLORS[winner] to grab the winner player's color from the constant above
+            // Then to have the player's name is rendered, do PLAYERS[winner] and set it to uppercase
         messageEl.innerHTML = `<span style="color: ${COLORS[winner]}">${PLAYERS[winner].toUpperCase()}</span> Wins!`
     } else {
+        // If there is not a stalemate or a winner, then render a similar message to say who's turn it is
         messageEl.innerHTML = `<span style="color: ${COLORS[turn]}">${PLAYERS[turn].toUpperCase()}</span>'s turn!`
     }
 }
 
 function renderControls() {
-// Change visibility of btn depending on state of game
+// Change visibility of btn depending on state of game using a ternary statement
     !winner ? playAgainBtn.style.visibility = 'hidden':playAgainBtn.style.visibility = 'visible' 
 }
-
-
-let squareClicked = false
-// Create move potentials
-squares.forEach(square => {
-    square.addEventListener('click', () => {
-        const img = square.querySelector('img');
-        if (img) {
-            const clickedImgSrc = img.src;
-            for (const key in PIECES) {
-                if (PIECES.hasOwnProperty(key) && PIECES[key].img === clickedImgSrc) {
-                    console.log(PIECES[key].color, PIECES[key].name);
-                    squareClicked = true
-                    break; // Stop the loop once the match is found
-                }
-            }
-        }
-    });
-});
