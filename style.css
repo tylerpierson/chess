@@ -111,10 +111,6 @@ button:hover {
     animation: tilt-shaking 0.15s infinite;
 }
 
-#movePotential {
-    border: 4px solid gold;
-}
-
 @keyframes tilt-shaking {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(5deg); }

@@ -160,13 +160,29 @@ function renderBoard() {
             // has been selected when the square is clicked
             // For each cell, I want to add a click event listener
             cellEl.addEventListener('click', function () {
-                // If the rowVal does not equal zero, then the function will determine what value it contains
+                // If the rowVal does not equal zero, then there must be a game piece in that position
                 if (rowVal !== 0) {
-                    // Create a variable to store the PIECES color concatenated with the PIECES name
-                    const currentPiece = PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name;
-                    console.log(currentPiece);
-                    if (PIECES[rowVal.toString()].name === 'rook') {
-                        console.log('YES!');
+                    // Create a variable that determines the next cell to highlight when a black pawn moves
+                    const blackPawnMove = document.getElementById(`c${colIdx}r${rowIdx - 1}`);
+                    const whitePawnMove = document.getElementById(`c${colIdx}r${rowIdx + 1}`);
+
+                    // Begin setting the move potentials of the pawns with an if statement. Check to see
+                    // if the piece in the cell is a pawn (either black or white) and whether or not it is
+                    // in its initial position
+                    if (PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name === 'black pawn' && rowIdx === 6) {
+                        
+                        blackPawnMove.style.border = "3px solid blue";
+            
+                        blackPawnMove.addEventListener('click', function() {
+                            console.log('Black pawn moved')
+                        });
+                    } else if (PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name === 'white pawn' && rowIdx === 1) {
+                        
+                        whitePawnMove.style.border = "3px solid blue";
+            
+                        whitePawnMove.addEventListener('click', function() {
+                            console.log('White pawn moved')
+                        });
                     }
                 }
             });
