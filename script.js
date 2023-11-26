@@ -156,36 +156,25 @@ function renderBoard() {
                 cellEl.appendChild(imgEl);
             }
 
-            // Within the renderBoard function, use a forEach function to identify which type of game piece
-            // has been selected when the square is clicked
-            // For each cell, I want to add a click event listener
-            cellEl.addEventListener('click', function () {
-                // If the rowVal does not equal zero, then there must be a game piece in that position
-                if (rowVal !== 0) {
-                    // Create a variable that determines the next cell to highlight when a black pawn moves
-                    const blackPawnMove = document.getElementById(`c${colIdx}r${rowIdx - 1}`);
-                    const whitePawnMove = document.getElementById(`c${colIdx}r${rowIdx + 1}`);
-
-                    // Begin setting the move potentials of the pawns with an if statement. Check to see
-                    // if the piece in the cell is a pawn (either black or white) and whether or not it is
-                    // in its initial position
-                    if (PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name === 'black pawn' && rowIdx === 6) {
+            function blackPawn() {
+                cellEl.addEventListener('click', function () {
+                    if (rowVal === -1 && rowIdx === 6) {
+                        cellEl.style.border = '5px solid gold';
                         
-                        blackPawnMove.style.border = "3px solid blue";
-            
-                        blackPawnMove.addEventListener('click', function() {
-                            console.log('Black pawn moved')
-                        });
-                    } else if (PIECES[rowVal.toString()].color + ' ' + PIECES[rowVal.toString()].name === 'white pawn' && rowIdx === 1) {
-                        
-                        whitePawnMove.style.border = "3px solid blue";
-            
-                        whitePawnMove.addEventListener('click', function() {
-                            console.log('White pawn moved')
-                        });
+                        for (let i = 1; i <= 2; i++) {
+                            const targetRow = rowIdx - i;
+                            const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                            targetCell.style.border = '7px solid green';
+                            
+                            targetCell.addEventListener('click', function() {
+                                console.log('Black pawn moved')
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
+            blackPawn();
+            
         });
     });
 }
