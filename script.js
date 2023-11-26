@@ -116,12 +116,18 @@ function init() {
     render();
 }
 
+renderBoard();
+
 // This function will update the state of our application and render it to the DOM
 function render() {
     // Run all rending functions
-    renderBoard();
     renderMessage();
-    renderControls();
+    renderButton();
+}
+
+function newTurn() {
+    turn = turn * -1
+    renderMessage()
 }
 
 // Create a renderBoard function
@@ -157,28 +163,69 @@ function renderBoard() {
             }
 
             function blackPawn() {
-                cellEl.addEventListener('click', function () {
-                    if (rowVal === -1 && rowIdx === 6) {
-                        cellEl.style.border = '5px solid gold';
-                        
-                        for (let i = 1; i <= 2; i++) {
-                            const targetRow = rowIdx - i;
-                            const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                            targetCell.style.border = '7px solid green';
+                if(turn === -1){
+                    cellEl.addEventListener('click', function () {
+                        if (rowVal === -1 && rowIdx === 6) {
+                            cellEl.style.border = '5px solid gold';
                             
+                            for (let i = 1; i <= 2; i++) {
+                                const targetRow = rowIdx - i;
+                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                                targetCell.style.border = '7px solid green';
+                                
+                                targetCell.addEventListener('click', function() {
+                                    console.log('Black pawn moved')
+                                    newTurn()
+                                });
+                            }
+                        } else if (rowVal === -1 && rowIdx !== 6) {
+                            targetRow = rowIdx - 1
+                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                            targetCell.style.border = '7px solid green';
+
                             targetCell.addEventListener('click', function() {
                                 console.log('Black pawn moved')
+                                newTurn()
                             });
                         }
-                    }
-                });
+                    });
+                }
             }
             blackPawn();
-            
+
+            function whitePawn() {
+                if(turn === 1){
+                    cellEl.addEventListener('click', function () {
+                        if (rowVal === 1 && rowIdx === 1) {
+                            cellEl.style.border = '5px solid gold';
+                            
+                            for (let i = 1; i <= 2; i++) {
+                                const targetRow = rowIdx + i;
+                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                                targetCell.style.border = '7px solid green';
+                                
+                                targetCell.addEventListener('click', function() {
+                                    console.log('White pawn moved')
+                                    newTurn()
+                                });
+                            }
+                        } else if (rowVal === 1 && rowIdx !== 1) {
+                            targetRow = rowIdx + 1
+                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                            targetCell.style.border = '7px solid green';
+
+                            targetCell.addEventListener('click', function() {
+                                console.log('White pawn moved')
+                                newTurn()
+                            });
+                        }
+                    });
+                }
+            }
+            whitePawn();
         });
     });
 }
-
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
 function renderMessage() {
@@ -198,7 +245,7 @@ function renderMessage() {
     }
 }
 
-function renderControls() {
+function renderButton() {
 // Change visibility of btn depending on state of game using a ternary statement
     !winner ? playAgainBtn.style.visibility = 'hidden':playAgainBtn.style.visibility = 'visible' 
 }
