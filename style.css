@@ -111,6 +111,14 @@ button:hover {
     animation: tilt-shaking 0.15s infinite;
 }
 
+.highlightedPrimary {
+    border: 5px solid gold;
+}
+
+.highlightedCells {
+    border: 8px solid green;
+}
+
 @keyframes tilt-shaking {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(5deg); }
