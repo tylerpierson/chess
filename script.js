@@ -97,15 +97,15 @@ function init() {
     // When the init function is ran, the board is rendered using this 2d array with all game pieces in
     // their initial positions
     board = [
-        //   A  B  C  D  E  F  G  H
-            [6, 1, 0, 0, 0, 0, -1, -6], // 8
-            [5, 1, 0, 0, 0, 0, -1, -5], // 7
-            [4, 1, 0, 0, 0, 0, -1, -4], // 6
-            [3, 1, 0, 0, 0, 0, -1, -3], // 5
+        //   0  1  2  3  4  5   6   7
+            [6, 1, 0, 0, 0, 0, -1, -6], // 0
+            [5, 1, 0, 0, 0, 0, -1, -5], // 1
+            [4, 1, 0, 0, 0, 0, -1, -4], // 2
+            [3, 1, 0, 0, 1, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
-            [4, 1, 0, 0, 0, 0, -1, -4], // 3
-            [5, 1, 0, 0, 0, 0, -1, -5], // 2
-            [6, 1, 0, 0, 0, 0, -1, -6] // 1
+            [4, 1, 0, 0, 0, 0, -1, -4], // 5
+            [5, 1, 0, 0, 0, 0, -1, -5], // 6
+            [6, 1, 0, 0, 0, 0, -1, -6]  // 7
         ];
 
     // The game is initiated with the winner set to 'null' until the game ends
@@ -115,11 +115,12 @@ function init() {
     render();
 }
 
-renderBoard();
+
 
 // This function will update the state of our application and render it to the DOM
 function render() {
     // Run all rending functions
+    renderBoard();
     renderMessage();
     renderButton();
 }
@@ -149,75 +150,41 @@ function renderBoard() {
                 cellEl.appendChild(imgEl);
             }
 
-            function whitePawn() {
-                if(turn === 1){
-                    cellEl.addEventListener('click', function () {
-                        if (rowVal === 1 && rowIdx === 1) {
-                            cellEl.style.border = '5px solid gold';
-                            for (let i = 1; i <= 2; i++) {
-                                const targetRow = rowIdx + i;
-                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                                targetCell.style.border = '7px solid green';
-                                targetCell.addEventListener('click', function() {
-                                    const colIndex = Number(targetCell.id[1]);
-                                    const rowIndex = Number(targetCell.id[3]);
-                                    console.log('White pawn moved');
-                                    const newVal = board[colIndex][rowIndex] = 1
-                                    const oldVal = board[colIdx][rowIdx] = 0
-                                    console.log(newVal)
-                                    renderBoard()
-                                    // newTurn();
-                                });
-                            }
-                        } 
-                        
-                        if (rowVal === 1 && rowIdx !== 1) {
-                            targetRow = rowIdx + 1
-                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                            targetCell.style.border = '7px solid green';
-                            targetCell.addEventListener('click', function() {
-                                const colIndex = Number(targetCell.id[1]);
-                                const rowIndex = Number(targetCell.id[3]);
-                                console.log('White pawn moved');
-                                const newVal = board[colIndex][rowIndex] = 1
-                                const oldVal = board[colIdx][rowIdx] = 0
-                                console.log(newVal)
-                                renderBoard()
-                                // newTurn();
-                            });
-                        }
-                    });
-                }
-            }
-            whitePawn();
-
-            function blackPawn() {
-                if(turn === -1){
-                    cellEl.addEventListener('click', function () {
-                        if (rowVal === -1 && rowIdx === 6) {
-                            cellEl.style.border = '5px solid gold';  
-                            for (let i = 1; i <= 2; i++) {
-                                const targetRow = rowIdx - i;
-                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                                targetCell.style.border = '7px solid green';
-                                targetCell.addEventListener('click', function() {
-                                    console.log('Black pawn moved')
-                                    newTurn()
-                                });
-                            }
-                        } else if (rowVal === -1 && rowIdx !== 6) {
-                            targetRow = rowIdx - 1
-                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                            targetCell.style.border = '7px solid green';
-                            targetCell.addEventListener('click', function() {
-                                console.log('Black pawn moved')
+            highlightedCell = false
+            function pawn() {
+                cellEl.addEventListener('click', function() {
+                    let newPos = board[colIdx][rowIdx] = 1
+                    if(rowVal === 1 && rowIdx === 1){
+                        cellEl.style.border = '5px solid gold';
+                        for (let i = 1; i <= 2; i++){
+                            const pawnMovePotential = `c${colIdx}r${rowIdx + i}`
+                            const pawnNextMove = document.getElementById(pawnMovePotential)
+                            pawnNextMove.style.border = '8px solid green'
+                            highlightedCell = true
+                            pawnNextMove.addEventListener('click', function() {
+                                pawnNextMove.style.backgroundColor = 'yellow'
+                                board[colIdx][rowIdx] = 0
+                                newPos
                                 newTurn()
-                            });
+                                render()
+                            })
                         }
-                    });
-                }
+                    } else if(rowVal === 1 && rowIdx !== 1){
+                        const pawnMovePotential = `c${colIdx}r${rowIdx + 1}`
+                        const pawnNextMove = document.getElementById(pawnMovePotential)
+                        pawnNextMove.style.border = '8px solid green'
+                        highlightedCell = true
+                        pawnNextMove.addEventListener('click', function() {
+                            pawnNextMove.style.backgroundColor = 'yellow'
+                            board[colIdx][rowIdx] = 0
+                            newPos
+                            newTurn()
+                            render
+                        })
+                    }
+                })
             }
-            blackPawn();
+            pawn()
         });
     });
 }
