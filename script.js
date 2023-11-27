@@ -130,6 +130,8 @@ function newTurn() {
     renderMessage()
 }
 
+
+
 // Create a renderBoard function
 function renderBoard() {
     // Run a forEach function that will take parameters of the colArr(column array that displays each
@@ -149,8 +151,32 @@ function renderBoard() {
                 imgEl.style.width = '6rem';
                 cellEl.appendChild(imgEl);
             }
+
+            function clearAllHighlights() {
+                clearHighlightedPrimary()
+                clearHighlightedCells()
+                clearHighlightedTargets()
+            }
+
+            function clearHighlightedPrimary() {
+                document.querySelectorAll('.highlightedPrimary').forEach(cell => {
+                    cell.classList.remove('highlightedPrimary');
+                });
+            }
+
+            function clearHighlightedCells() {
+                document.querySelectorAll('.highlightedCells').forEach(cell => {
+                    cell.classList.remove('highlightedCells');
+                });
+            }
+
+            function clearHighlightedTargets() {
+                document.querySelectorAll('.highlightTargets').forEach(cell => {
+                    cell.classList.remove('highlightTargets');
+                });
+            }
             
-            function pawn() {
+            function whitePawn() {
                 cellEl.addEventListener('click', function() {
                     let newPos = board[colIdx][rowIdx] = 1
                     if(rowVal === 1 && rowIdx === 1){
@@ -161,10 +187,9 @@ function renderBoard() {
                                 const pawnNextMove = document.getElementById(pawnMovePotential)
                                 pawnNextMove.classList.add('highlightedCells')
                                 pawnNextMove.addEventListener('click', function() {
-                                    cellEl.classList.remove('highlightedPrimary')
-                                    pawnNextMove.classList.remove('highlightedCells')
                                     board[colIdx][rowIdx] = 0
                                     newPos
+                                    clearAllHighlights()
                                     newTurn()
                                     render()
                                 })
@@ -176,41 +201,50 @@ function renderBoard() {
                         const pawnNextMove = document.getElementById(pawnMovePotential)
                         pawnNextMove.classList.add('highlightedCells')
                         pawnNextMove.addEventListener('click', function() {
-                            cellEl.classList.remove('highlightedPrimary')
-                            pawnNextMove.classList.remove('highlightedCells')
+                            if(rowIdx === 7){
+                                makeQueen()
+                                render()
+                            } else {
+                                newPos
+                            }
                             board[colIdx][rowIdx] = 0
-                            newPos
+                            clearAllHighlights()
                             newTurn()
                             render()
                         })
-                    } else if (rowVal === 1 && rowIdx !== 1 && board[colIdx - 1][rowIdx + 1] !== 0 || board[colIdx + 1][rowIdx + 1] !== 0){
-                        cellEl.classList.add('highlightedPrimary')
-                        const pawnKillLeft = `c${colIdx - 1}r${rowIdx + 1}`
-                        const pawnKillRight = `c${colIdx + 1}r${rowIdx + 1}`
-                        const pawnNextKillLeft = document.getElementById(pawnKillLeft)
-                        const pawnNextKillRight = document.getElementById(pawnKillRight)
-                        pawnNextKillLeft.classList.add('highlightedCells')
-                        pawnNextKillRight.classList.add('highlightedCells')
-                        pawnNextKillLeft.addEventListener('click', function() {
-                            cellEl.classList.remove('highlightedPrimary')
-                            pawnNextKillLeft.classList.remove('highlightedCells')
-                            board[colIdx][rowIdx] = 0
-                            newPos
-                            newTurn()
-                            render()
-                        })
-                        pawnNextKillRight.addEventListener('click', function() {
-                            cellEl.classList.remove('highlightedPrimary')
-                            pawnNextKillRight.classList.remove('highlightedCells')
-                            board[colIdx][rowIdx] = 0
-                            newPos
-                            newTurn()
-                            render()
-                        })
+                    } else if (rowVal === 1 && rowIdx !== 1) {
+                        if(board[colIdx + 1][rowIdx + 1] < 0) {
+                            cellEl.classList.add('highlightedPrimary')
+                            const pawnKillRight = `c${colIdx + 1}r${rowIdx + 1}`
+                            const pawnNextKillRight = document.getElementById(pawnKillRight)
+                            pawnNextKillRight.classList.add('highlightTargets')
+                            pawnNextKillRight.addEventListener('click', function() {
+                                cellEl.classList.remove('highlightedPrimary')
+                                board[colIdx][rowIdx] = 0
+                                newPos
+                                clearHighlightedTargets()
+                                newTurn()
+                                render()
+                            })
+                        }
+                        if(board[colIdx - 1][rowIdx + 1] < 0) {
+                            cellEl.classList.add('highlightedPrimary')
+                            const pawnKillLeft = `c${colIdx - 1}r${rowIdx + 1}`
+                            const pawnNextKillLeft = document.getElementById(pawnKillLeft)
+                            pawnNextKillLeft.classList.add('highlightTargets')
+                            pawnNextKillLeft.addEventListener('click', function() {
+                                cellEl.classList.remove('highlightedPrimary')
+                                board[colIdx][rowIdx] = 0
+                                newPos
+                                clearHighlightedTargets()
+                                newTurn()
+                                render()
+                            })
+                        }
                     }
                 })
             }
-            pawn()
+            whitePawn()
         });
     });
 }

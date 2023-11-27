@@ -119,6 +119,10 @@ button:hover {
     border: 8px solid green;
 }
 
+.highlightTargets {
+    border: 8px solid red;
+}
+
 @keyframes tilt-shaking {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(5deg); }
