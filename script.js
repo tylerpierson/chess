@@ -110,7 +110,6 @@ function init() {
 
     // The game is initiated with the winner set to 'null' until the game ends
     winner = null;
-
     // The render function is ran to initiate all the functions that create the game (i.e renderBoard(), 
     // renderMessage(), and renderControls)
     render();
@@ -134,45 +133,73 @@ function newTurn() {
 function renderBoard() {
     // Run a forEach function that will take parameters of the colArr(column array that displays each
     // individual column) and the colIdx (column index which displays each column as an indexed number)
-    board.forEach(function(colArr, colIdx) {    
-        // For each column run another function that takes rowVal(row value that lists out each value in
-        // each row) and a rowIdx(row index that lists out each index of each row on the board)
+    board.forEach(function(colArr, colIdx) {
         colArr.forEach(function(rowVal, rowIdx) {
-            // Create a variable cellId that takes the column index and the row index to pinpoint a specific
-            // location on the game board using the ID created in the HTML for each square of the board
             const cellId = `c${colIdx}r${rowIdx}`;
-            // Use a variable to store each individual cell on the board by selecting it by its ID
             const cellEl = document.getElementById(cellId);
 
-            // Create an if statement w/in the renderBoard function to place each gamepiece image on its
-            // designated cell
-            // If the rowVal does not equal zero, then it needs to run a function to identify which game
-            // piece belongs on the cell
+            // Clear the cell content
+            cellEl.innerHTML = '';
+
             if (rowVal !== 0) {
-                // Create a variable to store each game piece's information as a string (i.e. name, color, 
-                // and image src)
                 const piece = PIECES[rowVal.toString()];
-                // store an image element in a variable
                 const imgEl = document.createElement('img');
-                // Give the new image element a value of piece.img using the .src method
                 imgEl.src = piece.img;
-                // Set the width of the images to 6rem
                 imgEl.style.width = '6rem';
-                // Append the image element to the cell element
                 cellEl.appendChild(imgEl);
             }
+
+            function whitePawn() {
+                if(turn === 1){
+                    cellEl.addEventListener('click', function () {
+                        if (rowVal === 1 && rowIdx === 1) {
+                            cellEl.style.border = '5px solid gold';
+                            for (let i = 1; i <= 2; i++) {
+                                const targetRow = rowIdx + i;
+                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                                targetCell.style.border = '7px solid green';
+                                targetCell.addEventListener('click', function() {
+                                    const colIndex = Number(targetCell.id[1]);
+                                    const rowIndex = Number(targetCell.id[3]);
+                                    console.log('White pawn moved');
+                                    const newVal = board[colIndex][rowIndex] = 1
+                                    const oldVal = board[colIdx][rowIdx] = 0
+                                    console.log(newVal)
+                                    renderBoard()
+                                    // newTurn();
+                                });
+                            }
+                        } 
+                        
+                        if (rowVal === 1 && rowIdx !== 1) {
+                            targetRow = rowIdx + 1
+                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
+                            targetCell.style.border = '7px solid green';
+                            targetCell.addEventListener('click', function() {
+                                const colIndex = Number(targetCell.id[1]);
+                                const rowIndex = Number(targetCell.id[3]);
+                                console.log('White pawn moved');
+                                const newVal = board[colIndex][rowIndex] = 1
+                                const oldVal = board[colIdx][rowIdx] = 0
+                                console.log(newVal)
+                                renderBoard()
+                                // newTurn();
+                            });
+                        }
+                    });
+                }
+            }
+            whitePawn();
 
             function blackPawn() {
                 if(turn === -1){
                     cellEl.addEventListener('click', function () {
                         if (rowVal === -1 && rowIdx === 6) {
-                            cellEl.style.border = '5px solid gold';
-                            
+                            cellEl.style.border = '5px solid gold';  
                             for (let i = 1; i <= 2; i++) {
                                 const targetRow = rowIdx - i;
                                 const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
                                 targetCell.style.border = '7px solid green';
-                                
                                 targetCell.addEventListener('click', function() {
                                     console.log('Black pawn moved')
                                     newTurn()
@@ -182,7 +209,6 @@ function renderBoard() {
                             targetRow = rowIdx - 1
                             targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
                             targetCell.style.border = '7px solid green';
-
                             targetCell.addEventListener('click', function() {
                                 console.log('Black pawn moved')
                                 newTurn()
@@ -192,37 +218,6 @@ function renderBoard() {
                 }
             }
             blackPawn();
-
-            function whitePawn() {
-                if(turn === 1){
-                    cellEl.addEventListener('click', function () {
-                        if (rowVal === 1 && rowIdx === 1) {
-                            cellEl.style.border = '5px solid gold';
-                            
-                            for (let i = 1; i <= 2; i++) {
-                                const targetRow = rowIdx + i;
-                                const targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                                targetCell.style.border = '7px solid green';
-                                
-                                targetCell.addEventListener('click', function() {
-                                    console.log('White pawn moved')
-                                    newTurn()
-                                });
-                            }
-                        } else if (rowVal === 1 && rowIdx !== 1) {
-                            targetRow = rowIdx + 1
-                            targetCell = document.getElementById(`c${colIdx}r${targetRow}`);
-                            targetCell.style.border = '7px solid green';
-
-                            targetCell.addEventListener('click', function() {
-                                console.log('White pawn moved')
-                                newTurn()
-                            });
-                        }
-                    });
-                }
-            }
-            whitePawn();
         });
     });
 }
