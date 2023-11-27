@@ -189,6 +189,7 @@ function renderBoard() {
                                 pawnNextMove.addEventListener('click', function() {
                                     board[colIdx][rowIdx] = 0
                                     newPos
+                                    console.log(newPos)
                                     clearAllHighlights()
                                     newTurn()
                                     render()
@@ -245,6 +246,14 @@ function renderBoard() {
                 })
             }
             whitePawn()
+
+            function makeQueen() {
+                if(rowVal === 1 && rowIdx === 7){
+                    board[colIdx][rowIdx] = 3
+                    render()
+                }
+            }
+            makeQueen()
         });
     });
 }
