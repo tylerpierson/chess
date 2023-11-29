@@ -119,9 +119,9 @@ function init() {
 
 
 
-// This function will update the state of our application and render it to the DOM
+// Write a function that will update the state of our application and render it to the DOM
 function render() {
-    // Run all rending functions
+    // Run all rendering functions
     renderBoard();
     renderMessage();
     renderButton();
@@ -131,8 +131,6 @@ function newTurn() {
     turn = turn * -1
     renderMessage()
 }
-
-
 
 // Create a renderBoard function
 function renderBoard() {
