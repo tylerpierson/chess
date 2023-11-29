@@ -85,6 +85,8 @@ const playAgainBtn = document.querySelector('button')
 const squares = document.querySelectorAll('.square')
 const messageEl = document.querySelector('.player-turn')
 
+
+playAgainBtn.addEventListener('click', init)
 // Functions
 // When this init function is ran, it will render the board with all game pieces in their initial positions
 init();
