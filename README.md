@@ -19,3 +19,6 @@ Winner:
     null -> No winner
     1/-1 -> Winning Player
     'stalemate' -> Stalemate
+
+
+Take the white pawn function out of the renderboard function and set an evt parameter on the parent. Use this along with evt.target to set event listeners rather than the cellEl.
