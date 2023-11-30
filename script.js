@@ -84,6 +84,7 @@ let winner; // This will be set to null. Player will be determined by either 1, 
 const playAgainBtn = document.querySelector('button')
 const squares = document.querySelectorAll('.square')
 const messageEl = document.querySelector('.player-turn')
+const mainBoard = document.querySelector('.board')
 
 
 playAgainBtn.addEventListener('click', init)
@@ -148,115 +149,119 @@ function renderBoard() {
                 const piece = PIECES[rowVal.toString()];
                 const imgEl = document.createElement('img');
                 imgEl.src = piece.img;
-                imgEl.style.width = '6rem';
+                imgEl.style.width = '7rem';
+                imgEl.setAttribute('id', cellId)
                 cellEl.appendChild(imgEl);
             }
-
-            function clearAllHighlights() {
-                clearHighlightedPrimary()
-                clearHighlightedCells()
-                clearHighlightedTargets()
-            }
-
-            function clearHighlightedPrimary() {
-                document.querySelectorAll('.highlightedPrimary').forEach(cell => {
-                    cell.classList.remove('highlightedPrimary');
-                });
-            }
-
-            function clearHighlightedCells() {
-                document.querySelectorAll('.highlightedCells').forEach(cell => {
-                    cell.classList.remove('highlightedCells');
-                });
-            }
-
-            function clearHighlightedTargets() {
-                document.querySelectorAll('.highlightTargets').forEach(cell => {
-                    cell.classList.remove('highlightTargets');
-                });
-            }
-            
-            function whitePawn() {
-                cellEl.addEventListener('click', function() {
-                    let newPos = board[colIdx][rowIdx] = 1
-                    if(rowVal === 1 && rowIdx === 1){
-                        cellEl.classList.add('highlightedPrimary')
-                        for (let i = 1; i <= 2; i++){
-                            if(board[colIdx][rowIdx + i] === 0){
-                                const pawnMovePotential = `c${colIdx}r${rowIdx + i}`
-                                const pawnNextMove = document.getElementById(pawnMovePotential)
-                                pawnNextMove.classList.add('highlightedCells')
-                                pawnNextMove.addEventListener('click', function() {
-                                    board[colIdx][rowIdx] = 0
-                                    newPos
-                                    console.log(newPos)
-                                    clearAllHighlights()
-                                    newTurn()
-                                    render()
-                                })
-                            }
-                        }
-                    } else if(rowVal === 1 && rowIdx !== 1 && board[colIdx][rowIdx + 1] === 0){
-                        cellEl.classList.add('highlightedPrimary')
-                        const pawnMovePotential = `c${colIdx}r${rowIdx + 1}`
-                        const pawnNextMove = document.getElementById(pawnMovePotential)
-                        pawnNextMove.classList.add('highlightedCells')
-                        pawnNextMove.addEventListener('click', function() {
-                            if(rowIdx === 7){
-                                makeQueen()
-                                render()
-                            } else {
-                                newPos
-                            }
-                            board[colIdx][rowIdx] = 0
-                            clearAllHighlights()
-                            newTurn()
-                            render()
-                        })
-                    } else if (rowVal === 1 && rowIdx !== 1) {
-                        if(board[colIdx + 1][rowIdx + 1] < 0) {
-                            cellEl.classList.add('highlightedPrimary')
-                            const pawnKillRight = `c${colIdx + 1}r${rowIdx + 1}`
-                            const pawnNextKillRight = document.getElementById(pawnKillRight)
-                            pawnNextKillRight.classList.add('highlightTargets')
-                            pawnNextKillRight.addEventListener('click', function() {
-                                cellEl.classList.remove('highlightedPrimary')
-                                board[colIdx][rowIdx] = 0
-                                newPos
-                                clearHighlightedTargets()
-                                newTurn()
-                                render()
-                            })
-                        }
-                        if(board[colIdx - 1][rowIdx + 1] < 0) {
-                            cellEl.classList.add('highlightedPrimary')
-                            const pawnKillLeft = `c${colIdx - 1}r${rowIdx + 1}`
-                            const pawnNextKillLeft = document.getElementById(pawnKillLeft)
-                            pawnNextKillLeft.classList.add('highlightTargets')
-                            pawnNextKillLeft.addEventListener('click', function() {
-                                cellEl.classList.remove('highlightedPrimary')
-                                board[colIdx][rowIdx] = 0
-                                newPos
-                                clearHighlightedTargets()
-                                newTurn()
-                                render()
-                            })
-                        }
-                    }
-                })
-            }
-            whitePawn()
-
-            function makeQueen() {
-                if(rowVal === 1 && rowIdx === 7){
-                    board[colIdx][rowIdx] = 3
-                    render()
-                }
-            }
-            makeQueen()
         });
     });
 }
+
+// function clearAllHighlights() {
+//     clearHighlightedPrimary()
+//     clearHighlightedCells()
+//     clearHighlightedTargets()
+// }
+
+// function clearHighlightedPrimary() {
+//     document.querySelectorAll('.highlightedPrimary').forEach(cell => {
+//         cell.classList.remove('highlightedPrimary');
+//     });
+// }
+
+// function clearHighlightedCells() {
+//     document.querySelectorAll('.highlightedCells').forEach(cell => {
+//         cell.classList.remove('highlightedCells');
+//     });
+// }
+
+// function clearHighlightedTargets() {
+//     document.querySelectorAll('.highlightTargets').forEach(cell => {
+//         cell.classList.remove('highlightTargets');
+//     });
+// }
+
+function whitePawn() {
+    const square = document.getElementById('c0r0')
+    mainBoard.addEventListener('click', function(evt) {
+        evt.target.classList.add('highlightedPrimary')
+        console.log(evt.target.type)
+        console.log(evt.target.id)
+        // let newPos = board[colIdx][rowIdx] = 1
+        // if(rowVal === 1 && rowIdx === 1){
+        //     for (let i = 1; i <= 2; i++){
+        //         if(board[colIdx][rowIdx + i] === 0){
+        //             const pawnMovePotential = `c${colIdx}r${rowIdx + i}`
+        //             const pawnNextMove = document.getElementById(pawnMovePotential)
+        //             pawnNextMove.classList.add('highlightedCells')
+        //             pawnNextMove.addEventListener('click', function() {
+        //                 board[colIdx][rowIdx] = 0
+        //                 newPos
+        //                 console.log(newPos)
+        //                 clearAllHighlights()
+        //                 newTurn()
+        //                 render()
+        //             })
+        //         }
+        //     }
+        // } else if(rowVal === 1 && rowIdx !== 1 && board[colIdx][rowIdx + 1] === 0){
+        //     cellEl.classList.add('highlightedPrimary')
+        //     const pawnMovePotential = `c${colIdx}r${rowIdx + 1}`
+        //     const pawnNextMove = document.getElementById(pawnMovePotential)
+        //     pawnNextMove.classList.add('highlightedCells')
+        //     pawnNextMove.addEventListener('click', function() {
+        //         if(rowIdx === 7){
+        //             makeQueen()
+        //             render()
+        //         } else {
+        //             newPos
+        //         }
+        //         board[colIdx][rowIdx] = 0
+        //         clearAllHighlights()
+        //         newTurn()
+        //         render()
+        //     })
+        // } else if (rowVal === 1 && rowIdx !== 1) {
+        //     if(board[colIdx + 1][rowIdx + 1] < 0) {
+        //         cellEl.classList.add('highlightedPrimary')
+        //         const pawnKillRight = `c${colIdx + 1}r${rowIdx + 1}`
+        //         const pawnNextKillRight = document.getElementById(pawnKillRight)
+        //         pawnNextKillRight.classList.add('highlightTargets')
+        //         pawnNextKillRight.addEventListener('click', function() {
+        //             cellEl.classList.remove('highlightedPrimary')
+        //             board[colIdx][rowIdx] = 0
+        //             newPos
+        //             clearHighlightedTargets()
+        //             newTurn()
+        //             render()
+        //         })
+        //     }
+        //     if(board[colIdx - 1][rowIdx + 1] < 0) {
+        //         cellEl.classList.add('highlightedPrimary')
+        //         const pawnKillLeft = `c${colIdx - 1}r${rowIdx + 1}`
+        //         const pawnNextKillLeft = document.getElementById(pawnKillLeft)
+        //         pawnNextKillLeft.classList.add('highlightTargets')
+        //         pawnNextKillLeft.addEventListener('click', function() {
+        //             cellEl.classList.remove('highlightedPrimary')
+        //             board[colIdx][rowIdx] = 0
+        //             newPos
+        //             clearHighlightedTargets()
+        //             newTurn()
+        //             render()
+        //         })
+        //     }
+        // }
+    })
+}
+whitePawn()
+
+// function makeQueen() {
+//     if(rowVal === 1 && rowIdx === 7){
+//         board[colIdx][rowIdx] = 3
+//         render()
+//     }
+// }
+// makeQueen()
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
 function renderMessage() {
