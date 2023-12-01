@@ -143,7 +143,7 @@ function renderBoard() {
             const cellEl = document.getElementById(cellId);
 
             // Clear the cell content
-            cellEl.innerHTML = '';
+            cellEl.innerHTML = ``;
 
             if (rowVal !== 0) {
                 const piece = PIECES[rowVal.toString()];
@@ -157,14 +157,65 @@ function renderBoard() {
     });
 }
 
-function whitePawn() {
+function pawn() {
+    let highlightedPrimaryCell = null; // Store the primary highlighted cell
+    let secondaryHighlightedCells = []; // Array to store cell IDs with the 'highlightedSecondary' class
+
     mainBoard.addEventListener('click', function(evt) {
-        const squareElType = evt.target.tagName
-        const squareId = evt.target.id
-        if(squareElType === 'IMG') {
-            evt.target.classList.add('highlightedPrimary')
-            console.log(evt.target)
+        const square = evt.target;
+        const squareElType = evt.target.tagName;
+        const squareId = evt.target.id;
+
+        const colIdx = squareId.charAt(1); // Extracts the character at index 1 (the column index)
+        const rowIdx = squareId.charAt(3); // Extracts the character at index 3 (the row index)
+
+        const rowIndex = parseInt(rowIdx);
+
+        // Remove both primary and secondary highlights
+        if (highlightedPrimaryCell) {
+            highlightedPrimaryCell.classList.remove('highlightedPrimary');
+            secondaryHighlightedCells.forEach(cellId => {
+                const cell = document.getElementById(cellId);
+                if (cell) {
+                    cell.classList.remove('highlightedSecondary');
+                }
+            });
+            highlightedPrimaryCell = null;
+            secondaryHighlightedCells = [];
         }
+
+        if (squareElType === 'IMG' && rowIndex === 1) {
+            for (let i = 1; i <= 2; i++) {
+                const nextRowIdx = rowIndex + i;
+                const nextSquare = document.getElementById(`c${colIdx}r${nextRowIdx}`);
+
+                if (nextSquare) {
+                    square.classList.add('highlightedPrimary');
+                    nextSquare.classList.add('highlightedSecondary');
+                    highlightedPrimaryCell = square;
+                    secondaryHighlightedCells.push(`c${colIdx}r${nextRowIdx}`);
+                    
+                    nextSquare.addEventListener('click', function() {
+                        // Remove both primary and secondary highlights
+                        highlightedPrimaryCell.classList.remove('highlightedPrimary');
+                        secondaryHighlightedCells.forEach(cellId => {
+                            const cell = document.getElementById(cellId);
+                            if (cell) {
+                                cell.classList.remove('highlightedSecondary');
+                            }
+                        });
+                        highlightedPrimaryCell = null;
+                        secondaryHighlightedCells = [];
+                    });
+                }
+            }
+        }
+    });
+}
+pawn();
+
+
+
         // let newPos = board[colIdx][rowIdx] = 1
         // if(rowVal === 1 && rowIdx === 1){
         //     for (let i = 1; i <= 2; i++){
@@ -229,9 +280,6 @@ function whitePawn() {
         //         })
         //     }
         // }
-    })
-}
-whitePawn()
 
 // function makeQueen() {
 //     if(rowVal === 1 && rowIdx === 7){
@@ -240,6 +288,7 @@ whitePawn()
 //     }
 // }
 // makeQueen()
+
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
 function renderMessage() {

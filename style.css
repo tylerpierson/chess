@@ -72,6 +72,13 @@ body {
     align-items: center;
 }
 
+.overlay {
+    background-color: red;
+    z-index: 1000;
+    width: 7rem;
+    height: 7rem;
+}
+
 .square:hover {
     cursor: pointer;
     transform: scale(1.15);
@@ -115,8 +122,8 @@ button:hover {
     border: 5px solid gold;
 }
 
-.highlightedCells {
-    border: 8px solid green;
+.highlightedSecondary {
+    border: 5px solid limegreen;
 }
 
 .highlightTargets {
