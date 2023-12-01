@@ -157,36 +157,14 @@ function renderBoard() {
     });
 }
 
-// function clearAllHighlights() {
-//     clearHighlightedPrimary()
-//     clearHighlightedCells()
-//     clearHighlightedTargets()
-// }
-
-// function clearHighlightedPrimary() {
-//     document.querySelectorAll('.highlightedPrimary').forEach(cell => {
-//         cell.classList.remove('highlightedPrimary');
-//     });
-// }
-
-// function clearHighlightedCells() {
-//     document.querySelectorAll('.highlightedCells').forEach(cell => {
-//         cell.classList.remove('highlightedCells');
-//     });
-// }
-
-// function clearHighlightedTargets() {
-//     document.querySelectorAll('.highlightTargets').forEach(cell => {
-//         cell.classList.remove('highlightTargets');
-//     });
-// }
-
 function whitePawn() {
-    const square = document.getElementById('c0r0')
     mainBoard.addEventListener('click', function(evt) {
-        evt.target.classList.add('highlightedPrimary')
-        console.log(evt.target.type)
-        console.log(evt.target.id)
+        const squareElType = evt.target.tagName
+        const squareId = evt.target.id
+        if(squareElType === 'IMG') {
+            evt.target.classList.add('highlightedPrimary')
+            console.log(evt.target)
+        }
         // let newPos = board[colIdx][rowIdx] = 1
         // if(rowVal === 1 && rowIdx === 1){
         //     for (let i = 1; i <= 2; i++){
