@@ -177,6 +177,7 @@ function pawn() {
 
         // Once the row index is separated, create a variable to store it as a 'number' by using parseInt()
         const rowIndex = parseInt(rowIdx)
+        const pieceVal = board[colIdx][rowIdx]
 
         // Create an if statement to check on the current state of the highlightedPrimaryCell
         if (highlightedPrimarySquare) {
@@ -201,7 +202,7 @@ function pawn() {
 
         // Create an if statement to check that the squares type is an IMG and that it is currently at
         // a row index of 1 (the white pawns starting position)
-        if (squareElType === 'IMG' && rowIndex === 1) {
+        if (squareElType === 'IMG' && pieceVal === 1 && rowIndex === 1) {
             // Create a for loop that iterates 2 times to target all possible jump points
             for (let i = 1; i <= 2; i++) {
                 // To target the next row indices, set a variable of nextRowIndex equal to current rowIndex + i
@@ -241,6 +242,45 @@ function pawn() {
                         render()
                     })
                 }
+            }
+        // Determine if the piece is any position other than its initial pos
+        } else if (squareElType === 'IMG' && pieceVal === 1 && rowIndex !== 1) {
+            // To target the next row indices, set a variable of nextRowIndex equal to current rowIndex + i
+            const nextRowIdx = rowIndex + 1
+            // Use the nextRowIdx to search for the next possible square element by placing it within getElementById()
+            // along with the desired column index (ex. `c${colIdx}r${nextRowIdx}`)
+            const nextSquare = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+
+            // Create an if statement to determine what to do with the newly created 'nextSquare' variable
+            if (nextSquare) {
+                // Give the primary square a class of 'highlightedPrimary' to style it appropriately
+                square.classList.add('highlightedPrimary')
+                // Give the nextSquare a class of 'highlightedSecondary' to style all jump points accordingly
+                nextSquare.classList.add('highlightedSecondary')
+                // Set the highlightedPrimarySquare variable to equal the evt.target
+                highlightedPrimarySquare = square
+                // Push all nextSquare id's into the secondaryHighlightedSquares array by pushing in its id
+                secondaryHighlightedSquares.push(`c${colIdx}r${nextRowIdx}`)
+                
+                // Create an event listener for the nextSquare selection
+                nextSquare.addEventListener('click', function() {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx][nextRowIdx] = 1
+                    // Remove the primary highlight class from the highlightedPrimarySquare
+                    highlightedPrimarySquare.classList.remove('highlightedPrimary')
+                    // Run another forEach function to remove the highlightedSecondary class from all cells
+                    // within the secondaryHighlightedSquares array
+                    secondaryHighlightedSquares.forEach(cellId => {
+                        const cell = document.getElementById(cellId)
+                        if (cell) {
+                            cell.classList.remove('highlightedSecondary')
+                        }
+                    })
+                    // Reset the highlightedPrimarySquare and secondaryHighlightedSquares back to their initial states
+                    highlightedPrimarySquare = null
+                    secondaryHighlightedSquares = []
+                    render()
+                })
             }
         }
     })
