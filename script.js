@@ -223,6 +223,8 @@ function pawn() {
                     
                     // Create an event listener for the nextSquare selection
                     nextSquare.addEventListener('click', function() {
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][nextRowIdx] = 1
                         // Remove the primary highlight class from the highlightedPrimarySquare
                         highlightedPrimarySquare.classList.remove('highlightedPrimary')
                         // Run another forEach function to remove the highlightedSecondary class from all cells
@@ -236,6 +238,7 @@ function pawn() {
                         // Reset the highlightedPrimarySquare and secondaryHighlightedSquares back to their initial states
                         highlightedPrimarySquare = null
                         secondaryHighlightedSquares = []
+                        render()
                     })
                 }
             }
