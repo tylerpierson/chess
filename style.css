@@ -126,8 +126,8 @@ button:hover {
     border: 5px solid limegreen;
 }
 
-.highlightTargets {
-    border: 8px solid red;
+.highlightedEnemy {
+    border: 5px solid red;
 }
 
 @keyframes tilt-shaking {
