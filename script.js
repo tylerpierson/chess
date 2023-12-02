@@ -90,7 +90,7 @@ const mainBoard = document.querySelector('.board')
 playAgainBtn.addEventListener('click', init)
 // Functions
 // When this init function is ran, it will render the board with all game pieces in their initial positions
-init();
+init()
 
 function init() {
     // The turn variable is set to 1 when the init function is ran so the game starts with player 1 having
@@ -112,10 +112,10 @@ function init() {
         ];
 
     // The game is initiated with the winner set to 'null' until the game ends
-    winner = null;
+    winner = null
     // The render function is ran to initiate all the functions that create the game (i.e renderBoard(), 
     // renderMessage(), and renderControls)
-    render();
+    render()
 }
 
 
@@ -123,9 +123,9 @@ function init() {
 // Write a function that will update the state of our application and render it to the DOM
 function render() {
     // Run all rendering functions
-    renderBoard();
-    renderMessage();
-    renderButton();
+    renderBoard()
+    renderMessage()
+    renderButton()
 }
 
 function newTurn() {
@@ -139,80 +139,110 @@ function renderBoard() {
     // individual column) and the colIdx (column index which displays each column as an indexed number)
     board.forEach(function(colArr, colIdx) {
         colArr.forEach(function(rowVal, rowIdx) {
-            const cellId = `c${colIdx}r${rowIdx}`;
-            const cellEl = document.getElementById(cellId);
+            const cellId = `c${colIdx}r${rowIdx}`
+            const cellEl = document.getElementById(cellId)
 
             // Clear the cell content
-            cellEl.innerHTML = ``;
+            cellEl.innerHTML = ``
 
             if (rowVal !== 0) {
-                const piece = PIECES[rowVal.toString()];
-                const imgEl = document.createElement('img');
-                imgEl.src = piece.img;
-                imgEl.style.width = '7rem';
+                const piece = PIECES[rowVal.toString()]
+                const imgEl = document.createElement('img')
+                imgEl.src = piece.img
+                imgEl.style.width = '7rem'
                 imgEl.setAttribute('id', cellId)
-                cellEl.appendChild(imgEl);
+                cellEl.appendChild(imgEl)
             }
         });
     });
 }
 
 function pawn() {
-    let highlightedPrimaryCell = null; // Store the primary highlighted cell
-    let secondaryHighlightedCells = []; // Array to store cell IDs with the 'highlightedSecondary' class
+    // Set the highlightedPrimary cell to null
+    let highlightedPrimarySquare = null
+    // Array to store cell IDs with the 'highlightedSecondary' class
+    let secondaryHighlightedSquares = []
 
+    // Set an event listener on the mainBoard in order to target individual squares by setting an evt parameter
     mainBoard.addEventListener('click', function(evt) {
-        const square = evt.target;
-        const squareElType = evt.target.tagName;
-        const squareId = evt.target.id;
+        // Set variables to more easily call on the target selection, target type, and target id
+        const square = evt.target
+        const squareElType = evt.target.tagName
+        const squareId = evt.target.id
 
-        const colIdx = squareId.charAt(1); // Extracts the character at index 1 (the column index)
-        const rowIdx = squareId.charAt(3); // Extracts the character at index 3 (the row index)
+        // separate the character at index 1 of the id to remove the column index
+        const colIdx = squareId.charAt(1)
+        // separate the character at index 3 of the id to remove the row index
+        const rowIdx = squareId.charAt(3)
 
-        const rowIndex = parseInt(rowIdx);
+        // Once the row index is separated, create a variable to store it as a 'number' by using parseInt()
+        const rowIndex = parseInt(rowIdx)
 
-        // Remove both primary and secondary highlights
-        if (highlightedPrimaryCell) {
-            highlightedPrimaryCell.classList.remove('highlightedPrimary');
-            secondaryHighlightedCells.forEach(cellId => {
+        // Create an if statement to check on the current state of the highlightedPrimaryCell
+        if (highlightedPrimarySquare) {
+            // If the primary square is currently highlighted, remove the class 'highlightedPrimary' from the square
+            highlightedPrimarySquare.classList.remove('highlightedPrimary')
+            // Run a forEach function on the secondary highlights to remove all highlighted cells with a class name
+            // of 'highlightedSecondary'
+            secondaryHighlightedSquares.forEach(cellId => {
+                // Create a 'cell' variable that stores the cell by targeting it with its cellId
                 const cell = document.getElementById(cellId);
+                // If 'cell' is true (as in it is currently in the secondaryHighlightSquares array)
                 if (cell) {
-                    cell.classList.remove('highlightedSecondary');
+                    // Remove the class name 'highlightedSecondary' from each cell
+                    cell.classList.remove('highlightedSecondary')
                 }
             });
-            highlightedPrimaryCell = null;
-            secondaryHighlightedCells = [];
+            // Reset the highlightedPrimarySquare to 'null'
+            highlightedPrimarySquare = null
+            // Reset the secondaryHighlightedSquares to an empty array
+            secondaryHighlightedSquares = []
         }
 
+        // Create an if statement to check that the squares type is an IMG and that it is currently at
+        // a row index of 1 (the white pawns starting position)
         if (squareElType === 'IMG' && rowIndex === 1) {
+            // Create a for loop that iterates 2 times to target all possible jump points
             for (let i = 1; i <= 2; i++) {
-                const nextRowIdx = rowIndex + i;
-                const nextSquare = document.getElementById(`c${colIdx}r${nextRowIdx}`);
+                // To target the next row indices, set a variable of nextRowIndex equal to current rowIndex + i
+                const nextRowIdx = rowIndex + i
+                // Use the nextRowIdx to search for the next possible square element by placing it within getElementById()
+                // along with the desired column index (ex. `c${colIdx}r${nextRowIdx}`)
+                const nextSquare = document.getElementById(`c${colIdx}r${nextRowIdx}`)
 
+                // Create an if statement to determine what to do with the newly created 'nextSquare' variable
                 if (nextSquare) {
-                    square.classList.add('highlightedPrimary');
-                    nextSquare.classList.add('highlightedSecondary');
-                    highlightedPrimaryCell = square;
-                    secondaryHighlightedCells.push(`c${colIdx}r${nextRowIdx}`);
+                    // Give the primary square a class of 'highlightedPrimary' to style it appropriately
+                    square.classList.add('highlightedPrimary')
+                    // Give the nextSquare a class of 'highlightedSecondary' to style all jump points accordingly
+                    nextSquare.classList.add('highlightedSecondary')
+                    // Set the highlightedPrimarySquare variable to equal the evt.target
+                    highlightedPrimarySquare = square
+                    // Push all nextSquare id's into the secondaryHighlightedSquares array by pushing in its id
+                    secondaryHighlightedSquares.push(`c${colIdx}r${nextRowIdx}`)
                     
+                    // Create an event listener for the nextSquare selection
                     nextSquare.addEventListener('click', function() {
-                        // Remove both primary and secondary highlights
-                        highlightedPrimaryCell.classList.remove('highlightedPrimary');
-                        secondaryHighlightedCells.forEach(cellId => {
-                            const cell = document.getElementById(cellId);
+                        // Remove the primary highlight class from the highlightedPrimarySquare
+                        highlightedPrimarySquare.classList.remove('highlightedPrimary')
+                        // Run another forEach function to remove the highlightedSecondary class from all cells
+                        // within the secondaryHighlightedSquares array
+                        secondaryHighlightedSquares.forEach(cellId => {
+                            const cell = document.getElementById(cellId)
                             if (cell) {
-                                cell.classList.remove('highlightedSecondary');
+                                cell.classList.remove('highlightedSecondary')
                             }
-                        });
-                        highlightedPrimaryCell = null;
-                        secondaryHighlightedCells = [];
-                    });
+                        })
+                        // Reset the highlightedPrimarySquare and secondaryHighlightedSquares back to their initial states
+                        highlightedPrimarySquare = null
+                        secondaryHighlightedSquares = []
+                    })
                 }
             }
         }
-    });
+    })
 }
-pawn();
+pawn()
 
 
 
