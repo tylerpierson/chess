@@ -18,8 +18,8 @@ const PIECES = {
         value: 1,
         color: 'white',
         img: 'https://i.imgur.com/hAOAJM9.png',
-        initialJump: 'board[colIdx][rowIdx + 2]',
-        north: 'board[colIdx][rowIdx + 1]',
+        initialJump: ``,
+        north: '',
         northE: 'board[colIdx + 1][rowIdx + 1]',
         East: '',
         SouthE: '',
@@ -272,6 +272,7 @@ function render() {
     renderBoard()
     renderMessage()
     renderButton()
+    removeSelection()
 }
 
 function clearHighlights() {
@@ -312,13 +313,20 @@ function renderBoard() {
     });
 }
 
+function removeSelection() {
+    if(PIECES['1'].selectedCell) {
+        PIECES['1'].id = ''
+        PIECES['1'].north = ''
+        PIECES['1'].initialJump = ''
+        PIECES['1'].selectedCell = false
+    }
+}
+
+let cellSelection = null
+
 function gamePiece() {
     mainBoard.addEventListener('click', function(evt) {
-        PIECES['1'].id = evt.target.id
-        console.log(PIECES)
-        clearHighlights()
         const selectedCellId = evt.target.id
-        const selectedCellType = evt.target.tagName
 
         const colIdxSelector = selectedCellId.charAt(1)
         const rowIdxSelector = selectedCellId.charAt(3)
@@ -326,40 +334,30 @@ function gamePiece() {
         const rowIdx = parseInt(rowIdxSelector)
 
         const selectedCellValue = board[colIdx][rowIdx]
-        console.log(selectedCellValue)
+        
 
         function wPawn() {
-            if(selectedCellType === 'IMG' && selectedCellValue === 1) {
-                selectedCell = document.getElementById(evt.target.id)
-                selectedCell.classList.add('highlightedPrimary')
-                render()
-                if(rowIdx === 1) {
-                    for(i = 1; i <= 2; i++) {
-                        const nextRowIdx = rowIdx + i
-                        let potentialMove = document.getElementById(`c${colIdx}r${rowIdx + i}`)
-                        potentialMove.classList.add('highlightedSecondary')
-                        potentialMove.addEventListener('click', function() {
-                            board[colIdx][rowIdx] = 0
-                            board[colIdx][nextRowIdx] = 1
-                            clearHighlights()
-                            render()
-                        })
-                    }
-                    render()
-                } else if (rowIdx !== 1) {
-                    const nextRowIdx = rowIdx + 1
-                    let potentialMove = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
-                    potentialMove.classList.add('highlightedSecondary')
-                    potentialMove.addEventListener('click', function() {
-                        board[colIdx][rowIdx] = 0
-                        board[colIdx][nextRowIdx] = 1
-                        clearHighlights()
-                        render()
+            PIECES['1'].id = selectedCellId
+            const selectedPawn = document.getElementById(PIECES['1'].id)
+        
+            if (selectedCellValue === PIECES['1'].value && selectedCellId === PIECES['1'].id) {
+                if (selectedPawn.classList.contains('highlightedPrimary')) {
+                    selectedPawn.classList.remove('highlightedPrimary')
+                    cellSelection = null
+                } else {
+                    // Remove 'highlightedPrimary' class from all squares
+                    squares.forEach(square => {
+                        if (square.id !== PIECES['1'].id) {
+                            square.classList.remove('highlightedPrimary')
+                        }
                     })
+        
+                    selectedPawn.classList.add('highlightedPrimary')
+                    cellSelection = true
                 }
             }
         }
-        wPawn()
+        wPawn()        
     })
 }
 gamePiece()
