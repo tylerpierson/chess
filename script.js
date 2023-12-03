@@ -15,63 +15,207 @@ const PLAYERS = {
 const PIECES = {
     '1': {
         name: 'pawn',
+        value: 1,
         color: 'white',
-        img: 'https://i.imgur.com/hAOAJM9.png'
+        img: 'https://i.imgur.com/hAOAJM9.png',
+        initialJump: 'board[colIdx][rowIdx + 2]',
+        north: 'board[colIdx][rowIdx + 1]',
+        northE: 'board[colIdx + 1][rowIdx + 1]',
+        East: '',
+        SouthE: '',
+        South: '',
+        SouthW: '',
+        West: '',
+        northW: 'board[colIdx - 1][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '2': {
         name: 'king',
+        value: 2,
         color: 'white',
-        img: 'https://i.imgur.com/dRJVxWQ.png'
+        img: 'https://i.imgur.com/dRJVxWQ.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + 1]',
+        northE: 'board[colIdx + 1][rowIdx + 1]',
+        East: 'board[colIdx + 1][rowIdx]',
+        SouthE: 'board[colIdx + 1][rowIdx - 1]',
+        South: 'board[colIdx][rowIdx - 1]',
+        SouthW: 'board[colIdx - 1][rowIdx - 1]',
+        West: 'board[colIdx - 1][rowIdx]',
+        northW: 'board[colIdx - 1][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '3': {
         name: 'queen',
+        value: 3,
         color: 'white',
-        img: 'https://i.imgur.com/eEf9ra1.png'
+        img: 'https://i.imgur.com/eEf9ra1.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + i]',
+        northE: 'board[colIdx + i][rowIdx + i]',
+        East: 'board[colIdx + i][rowIdx]',
+        SouthE: 'board[colIdx + i][rowIdx - i]',
+        South: 'board[colIdx][rowIdx - i]',
+        SouthW: 'board[colIdx - i][rowIdx - i]',
+        West: 'board[colIdx - i][rowIdx]',
+        northW: 'board[colIdx - i][rowIdx + i]',
+        id: '',
+        selectedCell: false
     },
     '4': {
         name: 'bishop',
+        value: 4,
         color: 'white',
-        img: 'https://i.imgur.com/gHlGvlG.png'
+        img: 'https://i.imgur.com/gHlGvlG.png',
+        initialJump: '',
+        north: '',
+        northE: 'board[colIdx + i][rowIdx + i]',
+        East: '',
+        SouthE: 'board[colIdx + i][rowIdx - i]',
+        South: '',
+        SouthW: 'board[colIdx - i][rowIdx - i]',
+        West: '',
+        northW: 'board[colIdx - i][rowIdx + i]',
+        id: '',
+        selectedCell: false
     },
     '5': {
         name: 'knight',
+        value: 5,
         color: 'white',
-        img: 'https://i.imgur.com/gNdQZ3v.png'
+        img: 'https://i.imgur.com/gNdQZ3v.png',
+        initialJump: '',
+        north: 'board[colIdx - 1][rowIdx + 2]',
+        northE: 'board[colIdx + 1][rowIdx + 2]',
+        East: 'board[colIdx + 2][rowIdx + 1]',
+        SouthE: 'board[colIdx + 2][rowIdx - 1]',
+        South: 'board[colIdx + 1][rowIdx - 2]',
+        SouthW: 'board[colIdx - 1][rowIdx - 2]',
+        West: 'board[colIdx - 2][rowIdx - 1]',
+        northW: 'board[colIdx - 2][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '6': {
         name: 'rook',
+        value: 6,
         color: 'white',
-        img: 'https://i.imgur.com/APXYS0C.png'
+        img: 'https://i.imgur.com/APXYS0C.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + i]',
+        northE: '',
+        East: 'board[colIdx + i][rowIdx]',
+        SouthE: '',
+        South: 'board[colIdx][rowIdx - i]',
+        SouthW: '',
+        West: 'board[colIdx - i][rowIdx]',
+        northW: '',
+        id: '',
+        selectedCell: false
     },
     '-1': {
         name: 'pawn',
+        value: -1,
         color: 'black',
-        img: 'https://i.imgur.com/67vxdVo.png'
+        img: 'https://i.imgur.com/67vxdVo.png',
+        initialJump: 'board[colIdx][rowIdx - 2]',
+        north: 'board[colIdx][rowIdx + 1]',
+        northE: 'board[colIdx + 1][rowIdx + 1]',
+        East: '',
+        SouthE: '',
+        South: '',
+        SouthW: '',
+        West: '',
+        northW: 'board[colIdx - 1][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '-2': {
         name: 'king',
+        value: -2,
         color: 'black',
-        img: 'https://i.imgur.com/W6wYXyH.png'
+        img: 'https://i.imgur.com/W6wYXyH.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + 1]',
+        northE: 'board[colIdx + 1][rowIdx + 1]',
+        East: 'board[colIdx + 1][rowIdx]',
+        SouthE: 'board[colIdx + 1][rowIdx - 1]',
+        South: 'board[colIdx][rowIdx - 1]',
+        SouthW: 'board[colIdx - 1][rowIdx - 1]',
+        West: 'board[colIdx - 1][rowIdx]',
+        northW: 'board[colIdx - 1][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '-3': {
         name: 'queen',
+        value: -3,
         color: 'black',
-        img: 'https://i.imgur.com/met06db.png'
+        img: 'https://i.imgur.com/met06db.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + i]',
+        northE: 'board[colIdx + i][rowIdx + i]',
+        East: 'board[colIdx + i][rowIdx]',
+        SouthE: 'board[colIdx + i][rowIdx - i]',
+        South: 'board[colIdx][rowIdx - i]',
+        SouthW: 'board[colIdx - i][rowIdx - i]',
+        West: 'board[colIdx - i][rowIdx]',
+        northW: 'board[colIdx - i][rowIdx + i]',
+        id: '',
+        selectedCell: false
     },
     '-4': {
         name: 'bishop',
+        value: -4,
         color: 'black',
-        img: 'https://i.imgur.com/vwztxFW.png'
+        img: 'https://i.imgur.com/vwztxFW.png',
+        initialJump: '',
+        north: '',
+        northE: 'board[colIdx + i][rowIdx + i]',
+        East: '',
+        SouthE: 'board[colIdx + i][rowIdx - i]',
+        South: '',
+        SouthW: 'board[colIdx - i][rowIdx - i]',
+        West: '',
+        northW: 'board[colIdx - i][rowIdx + i]',
+        id: '',
+        selectedCell: false
     },
     '-5': {
         name: 'knight',
+        value: -5,
         color: 'black',
-        img: 'https://i.imgur.com/FaZ3WKc.png'
+        img: 'https://i.imgur.com/FaZ3WKc.png',
+        initialJump: '',
+        north: 'board[colIdx - 1][rowIdx + 2]',
+        northE: 'board[colIdx + 1][rowIdx + 2]',
+        East: 'board[colIdx + 2][rowIdx + 1]',
+        SouthE: 'board[colIdx + 2][rowIdx - 1]',
+        South: 'board[colIdx + 1][rowIdx - 2]',
+        SouthW: 'board[colIdx - 1][rowIdx - 2]',
+        West: 'board[colIdx - 2][rowIdx - 1]',
+        northW: 'board[colIdx - 2][rowIdx + 1]',
+        id: '',
+        selectedCell: false
     },
     '-6': {
         name: 'rook',
+        value: -6,
         color: 'black',
-        img: 'https://i.imgur.com/nQX2bU8.png'
+        img: 'https://i.imgur.com/nQX2bU8.png',
+        initialJump: '',
+        north: 'board[colIdx][rowIdx + i]',
+        northE: '',
+        East: 'board[colIdx + i][rowIdx]',
+        SouthE: '',
+        South: 'board[colIdx][rowIdx - i]',
+        SouthW: '',
+        West: 'board[colIdx - i][rowIdx]',
+        northW: '',
+        id: '',
+        selectedCell: false
     }
 }
 
@@ -170,6 +314,8 @@ function renderBoard() {
 
 function gamePiece() {
     mainBoard.addEventListener('click', function(evt) {
+        PIECES['1'].id = evt.target.id
+        console.log(PIECES)
         clearHighlights()
         const selectedCellId = evt.target.id
         const selectedCellType = evt.target.tagName
