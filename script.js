@@ -272,7 +272,6 @@ function render() {
     renderBoard()
     renderMessage()
     renderButton()
-    removeSelection()
 }
 
 function clearHighlights() {
@@ -313,15 +312,6 @@ function renderBoard() {
     });
 }
 
-function removeSelection() {
-    if(PIECES['1'].selectedCell) {
-        PIECES['1'].id = ''
-        PIECES['1'].north = ''
-        PIECES['1'].initialJump = ''
-        PIECES['1'].selectedCell = false
-    }
-}
-
 let cellSelection = null
 
 function gamePiece() {
@@ -332,32 +322,226 @@ function gamePiece() {
         const rowIdxSelector = selectedCellId.charAt(3)
         const colIdx = parseInt(colIdxSelector)
         const rowIdx = parseInt(rowIdxSelector)
-
+        
         const selectedCellValue = board[colIdx][rowIdx]
-        
 
-        function wPawn() {
-            PIECES['1'].id = selectedCellId
-            const selectedPawn = document.getElementById(PIECES['1'].id)
-        
-            if (selectedCellValue === PIECES['1'].value && selectedCellId === PIECES['1'].id) {
-                if (selectedPawn.classList.contains('highlightedPrimary')) {
-                    selectedPawn.classList.remove('highlightedPrimary')
-                    cellSelection = null
-                } else {
-                    // Remove 'highlightedPrimary' class from all squares
-                    squares.forEach(square => {
-                        if (square.id !== PIECES['1'].id) {
-                            square.classList.remove('highlightedPrimary')
+        function whiteTurn() {
+            if(board[colIdx][rowIdx + 1] === 0){
+                function wPawn() {
+                    PIECES['1'].id = selectedCellId
+                    const selectedPawn = document.getElementById(PIECES['1'].id)
+                
+                    if (selectedCellValue === PIECES['1'].value && selectedCellId === PIECES['1'].id) {
+                        if (selectedPawn.classList.contains('highlightedPrimary')) {
+                            selectedPawn.classList.remove('highlightedPrimary')
+                            selectedPawn.classList.remove('highlightedSecondary')
+                            cellSelection = null
+                        } else {
+                            // Remove 'highlightedPrimary' class from all squares
+                            squares.forEach(square => {
+                                if (square.id !== PIECES['1'].id) {
+                                    square.classList.remove('highlightedPrimary')
+                                    square.classList.remove('highlightedSecondary')
+                                }
+                            })
+                
+                            selectedPawn.classList.add('highlightedPrimary')
+                            cellSelection = true
+
+                            function initialPosWhite() {
+                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+                                const potentialMoveTwo = document.getElementById(`c${colIdx}r${rowIdx + 2}`)
+                                potentialMoveOne.classList.add('highlightedSecondary')
+                                potentialMoveTwo.classList.add('highlightedSecondary')
+
+                                potentialMoveOne.addEventListener('click', function() {
+                                    if(turn === 1){
+                                        board[colIdx][rowIdx] = 0
+                                        board[colIdx][rowIdx + 1] = 1
+                                        squares.forEach(square => {
+                                            square.classList.remove('highlightedPrimary')
+                                            square.classList.remove('highlightedSecondary')
+                                        })
+                                        selectedPawn.classList.remove('primaryHighlight')
+                                        newTurn()
+                                        render()
+                                    }
+                                })
+
+                                potentialMoveTwo.addEventListener('click', function() {
+                                    if(turn === 1){
+                                        board[colIdx][rowIdx] = 0
+                                        board[colIdx][rowIdx + 2] = 1
+                                        squares.forEach(square => {
+                                            square.classList.remove('highlightedPrimary')
+                                            square.classList.remove('highlightedSecondary')
+                                        })
+                                        selectedPawn.classList.remove('primaryHighlight')
+                                        newTurn()
+                                        render()
+                                    }
+                                }) 
+                            }
+
+                            if(rowIdx === 1 && turn === 1) {
+                                initialPosWhite()
+                            }
+
+                            if(rowIdx !== 1 && turn === 1) {
+                                // const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+                                // potentialMoveOne.classList.add('highlightedSecondary')
+                                // potentialMoveOne.addEventListener('click', function() {
+                                //     if(turn === 1){
+                                //         board[colIdx][rowIdx] = 0
+                                //         board[colIdx][rowIdx + 1] = 1
+                                //         squares.forEach(square => {
+                                //             square.classList.remove('highlightedPrimary')
+                                //             square.classList.remove('highlightedSecondary')
+                                //         })
+                                //         selectedPawn.classList.remove('primaryHighlight')
+                                //         newTurn()
+                                //         render()
+                                    // }
+                                // })
+                                console.log('worked')
+                            }
                         }
-                    })
-        
-                    selectedPawn.classList.add('highlightedPrimary')
-                    cellSelection = true
+                    }
                 }
+                wPawn() 
+                
+                function wKing() {
+                    PIECES['2'].id = selectedCellId
+                    const selectedPawn = document.getElementById(PIECES['1'].id)
+                
+                    if (selectedCellValue === PIECES['2'].value && selectedCellId === PIECES['2'].id) {
+                        if (selectedPawn.classList.contains('highlightedPrimary')) {
+                            selectedPawn.classList.remove('highlightedPrimary')
+                            cellSelection = null
+                        } else {
+                            // Remove 'highlightedPrimary' class from all squares
+                            squares.forEach(square => {
+                                if (square.id !== PIECES['2'].id) {
+                                    square.classList.remove('highlightedPrimary')
+                                }
+                            })
+                
+                            selectedPawn.classList.add('highlightedPrimary')
+                            console.log('white king')
+                            cellSelection = true
+                        }
+                    }
+                }
+                wKing() 
             }
+            render()
         }
-        wPawn()        
+        whiteTurn()
+
+        function blackTurn() {
+            if(board[colIdx][rowIdx - 1] === 0){
+                function bPawn() {
+                    PIECES['-1'].id = selectedCellId
+                    const selectedPawn = document.getElementById(PIECES['-1'].id)
+                
+                    if (selectedCellValue === PIECES['-1'].value && selectedCellId === PIECES['-1'].id) {
+                        if (selectedPawn.classList.contains('highlightedPrimary')) {
+                            selectedPawn.classList.remove('highlightedPrimary')
+                            selectedPawn.classList.remove('highlightedSecondary')
+                            cellSelection = null
+                        } else {
+                            // Remove 'highlightedPrimary' class from all squares
+                            squares.forEach(square => {
+                                if (square.id !== PIECES['-1'].id) {
+                                    square.classList.remove('highlightedPrimary')
+                                    square.classList.remove('highlightedSecondary')
+                                }
+                            })
+                
+                            selectedPawn.classList.add('highlightedPrimary')
+                            cellSelection = true
+
+                            if(rowIdx === 6 && turn === -1) {
+                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
+                                const potentialMoveTwo = document.getElementById(`c${colIdx}r${rowIdx - 2}`)
+                                potentialMoveOne.classList.add('highlightedSecondary')
+                                potentialMoveTwo.classList.add('highlightedSecondary')
+
+                                potentialMoveOne.addEventListener('click', function() {
+                                    if(turn === -1){
+                                        board[colIdx][rowIdx] = 0
+                                        board[colIdx][rowIdx - 1] = -1
+                                        squares.forEach(square => {
+                                            square.classList.remove('highlightedPrimary')
+                                            square.classList.remove('highlightedSecondary')
+                                        })
+                                        selectedPawn.classList.remove('primaryHighlight')
+                                        newTurn()
+                                        render()
+                                    }
+                                })
+
+                                potentialMoveTwo.addEventListener('click', function() {
+                                    if(turn === -1){
+                                        board[colIdx][rowIdx] = 0
+                                        board[colIdx][rowIdx - 2] = -1
+                                        squares.forEach(square => {
+                                            square.classList.remove('highlightedPrimary')
+                                            square.classList.remove('highlightedSecondary')
+                                        })
+                                        selectedPawn.classList.remove('primaryHighlight')
+                                        newTurn()
+                                        render()
+                                    }
+                                })
+                            } else if(rowIdx !== 6 && turn === -1) {
+                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
+                                potentialMoveOne.classList.add('highlightedSecondary')
+                                potentialMoveOne.addEventListener('click', function() {
+                                    if(turn === -1){
+                                        board[colIdx][rowIdx] = 0
+                                        board[colIdx][rowIdx - 1] = -1
+                                        squares.forEach(square => {
+                                            square.classList.remove('highlightedPrimary')
+                                            square.classList.remove('highlightedSecondary')
+                                        })
+                                        selectedPawn.classList.remove('primaryHighlight')
+                                        newTurn()
+                                        render()
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }
+                bPawn() 
+                
+                function bKing() {
+                    PIECES['2'].id = selectedCellId
+                    const selectedPawn = document.getElementById(PIECES['1'].id)
+                
+                    if (selectedCellValue === PIECES['2'].value && selectedCellId === PIECES['2'].id) {
+                        if (selectedPawn.classList.contains('highlightedPrimary')) {
+                            selectedPawn.classList.remove('highlightedPrimary')
+                            cellSelection = null
+                        } else {
+                            // Remove 'highlightedPrimary' class from all squares
+                            squares.forEach(square => {
+                                if (square.id !== PIECES['2'].id) {
+                                    square.classList.remove('highlightedPrimary')
+                                }
+                            })
+                
+                            selectedPawn.classList.add('highlightedPrimary')
+                            cellSelection = true
+                        }
+                    }
+                }
+                bKing() 
+            }
+            render()
+        }
+        blackTurn()
     })
 }
 gamePiece()
