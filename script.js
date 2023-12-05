@@ -17,205 +17,73 @@ const PIECES = {
         name: 'pawn',
         value: 1,
         color: 'white',
-        img: 'https://i.imgur.com/hAOAJM9.png',
-        initialJump: ``,
-        north: '',
-        northE: 'board[colIdx + 1][rowIdx + 1]',
-        East: '',
-        SouthE: '',
-        South: '',
-        SouthW: '',
-        West: '',
-        northW: 'board[colIdx - 1][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/hAOAJM9.png'
     },
     '2': {
         name: 'king',
         value: 2,
         color: 'white',
-        img: 'https://i.imgur.com/dRJVxWQ.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + 1]',
-        northE: 'board[colIdx + 1][rowIdx + 1]',
-        East: 'board[colIdx + 1][rowIdx]',
-        SouthE: 'board[colIdx + 1][rowIdx - 1]',
-        South: 'board[colIdx][rowIdx - 1]',
-        SouthW: 'board[colIdx - 1][rowIdx - 1]',
-        West: 'board[colIdx - 1][rowIdx]',
-        northW: 'board[colIdx - 1][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/dRJVxWQ.png'
     },
     '3': {
         name: 'queen',
         value: 3,
         color: 'white',
-        img: 'https://i.imgur.com/eEf9ra1.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + i]',
-        northE: 'board[colIdx + i][rowIdx + i]',
-        East: 'board[colIdx + i][rowIdx]',
-        SouthE: 'board[colIdx + i][rowIdx - i]',
-        South: 'board[colIdx][rowIdx - i]',
-        SouthW: 'board[colIdx - i][rowIdx - i]',
-        West: 'board[colIdx - i][rowIdx]',
-        northW: 'board[colIdx - i][rowIdx + i]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/eEf9ra1.png'
     },
     '4': {
         name: 'bishop',
         value: 4,
         color: 'white',
-        img: 'https://i.imgur.com/gHlGvlG.png',
-        initialJump: '',
-        north: '',
-        northE: 'board[colIdx + i][rowIdx + i]',
-        East: '',
-        SouthE: 'board[colIdx + i][rowIdx - i]',
-        South: '',
-        SouthW: 'board[colIdx - i][rowIdx - i]',
-        West: '',
-        northW: 'board[colIdx - i][rowIdx + i]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/gHlGvlG.png'
     },
     '5': {
         name: 'knight',
         value: 5,
         color: 'white',
-        img: 'https://i.imgur.com/gNdQZ3v.png',
-        initialJump: '',
-        north: 'board[colIdx - 1][rowIdx + 2]',
-        northE: 'board[colIdx + 1][rowIdx + 2]',
-        East: 'board[colIdx + 2][rowIdx + 1]',
-        SouthE: 'board[colIdx + 2][rowIdx - 1]',
-        South: 'board[colIdx + 1][rowIdx - 2]',
-        SouthW: 'board[colIdx - 1][rowIdx - 2]',
-        West: 'board[colIdx - 2][rowIdx - 1]',
-        northW: 'board[colIdx - 2][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/gNdQZ3v.png'
     },
     '6': {
         name: 'rook',
         value: 6,
         color: 'white',
-        img: 'https://i.imgur.com/APXYS0C.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + i]',
-        northE: '',
-        East: 'board[colIdx + i][rowIdx]',
-        SouthE: '',
-        South: 'board[colIdx][rowIdx - i]',
-        SouthW: '',
-        West: 'board[colIdx - i][rowIdx]',
-        northW: '',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/APXYS0C.png'
     },
     '-1': {
         name: 'pawn',
         value: -1,
         color: 'black',
-        img: 'https://i.imgur.com/67vxdVo.png',
-        initialJump: 'board[colIdx][rowIdx - 2]',
-        north: 'board[colIdx][rowIdx + 1]',
-        northE: 'board[colIdx + 1][rowIdx + 1]',
-        East: '',
-        SouthE: '',
-        South: '',
-        SouthW: '',
-        West: '',
-        northW: 'board[colIdx - 1][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/67vxdVo.png'
     },
     '-2': {
         name: 'king',
         value: -2,
         color: 'black',
-        img: 'https://i.imgur.com/W6wYXyH.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + 1]',
-        northE: 'board[colIdx + 1][rowIdx + 1]',
-        East: 'board[colIdx + 1][rowIdx]',
-        SouthE: 'board[colIdx + 1][rowIdx - 1]',
-        South: 'board[colIdx][rowIdx - 1]',
-        SouthW: 'board[colIdx - 1][rowIdx - 1]',
-        West: 'board[colIdx - 1][rowIdx]',
-        northW: 'board[colIdx - 1][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/W6wYXyH.png'
     },
     '-3': {
         name: 'queen',
         value: -3,
         color: 'black',
-        img: 'https://i.imgur.com/met06db.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + i]',
-        northE: 'board[colIdx + i][rowIdx + i]',
-        East: 'board[colIdx + i][rowIdx]',
-        SouthE: 'board[colIdx + i][rowIdx - i]',
-        South: 'board[colIdx][rowIdx - i]',
-        SouthW: 'board[colIdx - i][rowIdx - i]',
-        West: 'board[colIdx - i][rowIdx]',
-        northW: 'board[colIdx - i][rowIdx + i]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/met06db.png'
     },
     '-4': {
         name: 'bishop',
         value: -4,
         color: 'black',
-        img: 'https://i.imgur.com/vwztxFW.png',
-        initialJump: '',
-        north: '',
-        northE: 'board[colIdx + i][rowIdx + i]',
-        East: '',
-        SouthE: 'board[colIdx + i][rowIdx - i]',
-        South: '',
-        SouthW: 'board[colIdx - i][rowIdx - i]',
-        West: '',
-        northW: 'board[colIdx - i][rowIdx + i]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/vwztxFW.png'
     },
     '-5': {
         name: 'knight',
         value: -5,
         color: 'black',
-        img: 'https://i.imgur.com/FaZ3WKc.png',
-        initialJump: '',
-        north: 'board[colIdx - 1][rowIdx + 2]',
-        northE: 'board[colIdx + 1][rowIdx + 2]',
-        East: 'board[colIdx + 2][rowIdx + 1]',
-        SouthE: 'board[colIdx + 2][rowIdx - 1]',
-        South: 'board[colIdx + 1][rowIdx - 2]',
-        SouthW: 'board[colIdx - 1][rowIdx - 2]',
-        West: 'board[colIdx - 2][rowIdx - 1]',
-        northW: 'board[colIdx - 2][rowIdx + 1]',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/FaZ3WKc.png'
     },
     '-6': {
         name: 'rook',
         value: -6,
         color: 'black',
-        img: 'https://i.imgur.com/nQX2bU8.png',
-        initialJump: '',
-        north: 'board[colIdx][rowIdx + i]',
-        northE: '',
-        East: 'board[colIdx + i][rowIdx]',
-        SouthE: '',
-        South: 'board[colIdx][rowIdx - i]',
-        SouthW: '',
-        West: 'board[colIdx - i][rowIdx]',
-        northW: '',
-        id: '',
-        selectedCell: false
+        img: 'https://i.imgur.com/nQX2bU8.png'
     }
 }
 
@@ -223,10 +91,9 @@ const PIECES = {
 let turn // This will determine which players turn it is when the turn variable is either 1 or -1
 let board // This will be a 2d rendering of the game board when creating a board within an array
 let winner // This will be set to null. Player will be determined by either 1, -1, or 'stalemate'
-let selectedCell = null // Set a selected cell variable to null
-let highlightedPrimarySquare = null // Set the highlightedPrimary cell to null
-let secondaryHighlightedSquares = [] // Array to store cell IDs with the 'highlightedSecondary' class
-let enemyHighlightedSquares = [] // Array to store cell IDs with the 'highlightedEnemy' class
+let highlightedPrimarySquare = null
+let secondaryHighlightedSquares = []
+let enemyHighlightedSquares = []
 
 // Declaration of variables to manipulate within the DOM
 const playAgainBtn = document.querySelector('button')
@@ -280,13 +147,7 @@ function clearHighlights() {
         square.classList.remove('highlightedSecondary')
         square.classList.remove('highlightedEnemy')
     });
-}
-
-
-function newTurn() {
-    turn = turn * -1
-    renderMessage()
-}
+};
 
 // Create a renderBoard function
 function renderBoard() {
@@ -312,239 +173,151 @@ function renderBoard() {
     });
 }
 
-let cellSelection = null
+// Keep track of the currently highlighted cells
+let currentlyHighlightedPrimaryCell = null;
+let currentlyHighlightedSecondaryCells = [];
+let currentlyHighlightedTargetCells = [];
+
+function removeHighlights() {
+    if (currentlyHighlightedPrimaryCell) {
+        currentlyHighlightedPrimaryCell.classList.remove('highlightedPrimary');
+        currentlyHighlightedPrimaryCell = null;
+    }
+
+    currentlyHighlightedSecondaryCells.forEach(cell => {
+        cell.classList.remove('highlightedSecondary');
+    });
+    currentlyHighlightedSecondaryCells = [];
+
+    currentlyHighlightedTargetCells.forEach(cell => {
+        cell.classList.remove('highlightedEnemy');
+        cell.removeEventListener('click', handleEnemyCapture);
+    });
+    currentlyHighlightedTargetCells = [];
+}
+
+function handleWhitePawnMove(colIdx, rowIdx, targetRowIdx) {
+    board[colIdx][rowIdx] = 0;
+    board[colIdx][targetRowIdx] = 1;
+}
+
+function handleBlackPawnMove(colIdx, rowIdx, targetRowIdx) {
+    board[colIdx][rowIdx] = 0;
+    board[colIdx][targetRowIdx] = -1;
+}
+
+function handleEnemyCapture(colIdx, rowIdx, targetColIdx, targetRowIdx) {
+    board[colIdx][rowIdx] = 0;
+    board[targetColIdx][targetRowIdx] = -1;
+}
 
 function gamePiece() {
-    mainBoard.addEventListener('click', function(evt) {
-        const selectedCellId = evt.target.id
+    squares.forEach(square => {
+        square.addEventListener('click', function() {
+            removeHighlights();
 
-        const colIdxSelector = selectedCellId.charAt(1)
-        const rowIdxSelector = selectedCellId.charAt(3)
-        const colIdx = parseInt(colIdxSelector)
-        const rowIdx = parseInt(rowIdxSelector)
-        
-        const selectedCellValue = board[colIdx][rowIdx]
+            const cell = document.getElementById(square.id);
+            const colIndex = parseInt(square.id.charAt(1));
+            const rowIndex = parseInt(square.id.charAt(3));
+            const colIdx = parseInt(colIndex);
+            const rowIdx = parseInt(rowIndex);
 
-        function whiteTurn() {
-            if(board[colIdx][rowIdx + 1] === 0){
-                function wPawn() {
-                    PIECES['1'].id = selectedCellId
-                    const selectedPawn = document.getElementById(PIECES['1'].id)
-                
-                    if (selectedCellValue === PIECES['1'].value && selectedCellId === PIECES['1'].id) {
-                        if (selectedPawn.classList.contains('highlightedPrimary')) {
-                            selectedPawn.classList.remove('highlightedPrimary')
-                            selectedPawn.classList.remove('highlightedSecondary')
-                            cellSelection = null
-                        } else {
-                            // Remove 'highlightedPrimary' class from all squares
-                            squares.forEach(square => {
-                                if (square.id !== PIECES['1'].id) {
-                                    square.classList.remove('highlightedPrimary')
-                                    square.classList.remove('highlightedSecondary')
-                                }
-                            })
-                
-                            selectedPawn.classList.add('highlightedPrimary')
-                            cellSelection = true
+            if (turn === 1 && board[colIdx][rowIdx] === 1) {
+                if (rowIdx !== 1 && board[colIdx][rowIdx + 1] === 0) {
+                    cell.classList.add('highlightedPrimary');
+                    currentlyHighlightedPrimaryCell = cell;
 
-                            function initialPosWhite() {
-                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
-                                const potentialMoveTwo = document.getElementById(`c${colIdx}r${rowIdx + 2}`)
-                                potentialMoveOne.classList.add('highlightedSecondary')
-                                potentialMoveTwo.classList.add('highlightedSecondary')
+                    const potentialMove = document.getElementById(`c${colIdx}r${rowIdx + 1}`);
+                    potentialMove.classList.add('highlightedSecondary');
+                    currentlyHighlightedSecondaryCells.push(potentialMove);
 
-                                potentialMoveOne.addEventListener('click', function() {
-                                    if(turn === 1){
-                                        board[colIdx][rowIdx] = 0
-                                        board[colIdx][rowIdx + 1] = 1
-                                        squares.forEach(square => {
-                                            square.classList.remove('highlightedPrimary')
-                                            square.classList.remove('highlightedSecondary')
-                                        })
-                                        selectedPawn.classList.remove('primaryHighlight')
-                                        newTurn()
-                                        render()
-                                    }
-                                })
+                    potentialMove.addEventListener('click', function() {
+                        handleWhitePawnMove(colIdx, rowIdx, rowIdx + 1);
+                        turn *= -1;
+                        render();
+                    });
+                } else if (rowIdx === 1 && board[colIdx][rowIdx + 1] === 0) {
+                    cell.classList.add('highlightedPrimary');
+                    currentlyHighlightedPrimaryCell = cell;
 
-                                potentialMoveTwo.addEventListener('click', function() {
-                                    if(turn === 1){
-                                        board[colIdx][rowIdx] = 0
-                                        board[colIdx][rowIdx + 2] = 1
-                                        squares.forEach(square => {
-                                            square.classList.remove('highlightedPrimary')
-                                            square.classList.remove('highlightedSecondary')
-                                        })
-                                        selectedPawn.classList.remove('primaryHighlight')
-                                        newTurn()
-                                        render()
-                                    }
-                                }) 
-                            }
+                    for (let i = 1; i <= 2; i++) {
+                        const potentialMove = document.getElementById(`c${colIdx}r${rowIdx + i}`);
+                        if (board[colIdx][rowIdx + i] !== 0) break;
+                        potentialMove.classList.add('highlightedSecondary');
+                        currentlyHighlightedSecondaryCells.push(potentialMove);
 
-                            if(rowIdx === 1 && turn === 1) {
-                                initialPosWhite()
-                            }
-
-                            if(rowIdx !== 1 && turn === 1) {
-                                // const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
-                                // potentialMoveOne.classList.add('highlightedSecondary')
-                                // potentialMoveOne.addEventListener('click', function() {
-                                //     if(turn === 1){
-                                //         board[colIdx][rowIdx] = 0
-                                //         board[colIdx][rowIdx + 1] = 1
-                                //         squares.forEach(square => {
-                                //             square.classList.remove('highlightedPrimary')
-                                //             square.classList.remove('highlightedSecondary')
-                                //         })
-                                //         selectedPawn.classList.remove('primaryHighlight')
-                                //         newTurn()
-                                //         render()
-                                    // }
-                                // })
-                                console.log('worked')
-                            }
-                        }
+                        potentialMove.addEventListener('click', function() {
+                            handleWhitePawnMove(colIdx, rowIdx, rowIdx + i);
+                            turn *= -1;
+                            render();
+                        });
                     }
                 }
-                wPawn() 
-                
-                function wKing() {
-                    PIECES['2'].id = selectedCellId
-                    const selectedPawn = document.getElementById(PIECES['1'].id)
-                
-                    if (selectedCellValue === PIECES['2'].value && selectedCellId === PIECES['2'].id) {
-                        if (selectedPawn.classList.contains('highlightedPrimary')) {
-                            selectedPawn.classList.remove('highlightedPrimary')
-                            cellSelection = null
-                        } else {
-                            // Remove 'highlightedPrimary' class from all squares
-                            squares.forEach(square => {
-                                if (square.id !== PIECES['2'].id) {
-                                    square.classList.remove('highlightedPrimary')
-                                }
-                            })
-                
-                            selectedPawn.classList.add('highlightedPrimary')
-                            console.log('white king')
-                            cellSelection = true
-                        }
+            } else if (turn === -1 && board[colIdx][rowIdx] === -1) {
+                if (rowIdx !== 6 && board[colIdx][rowIdx - 1] === 0) {
+                    cell.classList.add('highlightedPrimary');
+                    currentlyHighlightedPrimaryCell = cell;
+
+                    const potentialMove = document.getElementById(`c${colIdx}r${rowIdx - 1}`);
+                    potentialMove.classList.add('highlightedSecondary');
+                    currentlyHighlightedSecondaryCells.push(potentialMove);
+
+                    potentialMove.addEventListener('click', function() {
+                        handleBlackPawnMove(colIdx, rowIdx, rowIdx - 1);
+                        turn *= -1;
+                        render();
+                    });
+                } else if (rowIdx === 6 && board[colIdx][rowIdx - 1] === 0) {
+                    cell.classList.add('highlightedPrimary');
+                    currentlyHighlightedPrimaryCell = cell;
+
+                    for (let i = 1; i <= 2; i++) {
+                        const potentialMove = document.getElementById(`c${colIdx}r${rowIdx - i}`);
+                        if (board[colIdx][rowIdx - i] !== 0) break;
+                        potentialMove.classList.add('highlightedSecondary');
+                        currentlyHighlightedSecondaryCells.push(potentialMove);
+
+                        potentialMove.addEventListener('click', function() {
+                            handleBlackPawnMove(colIdx, rowIdx, rowIdx - i);
+                            turn *= -1;
+                            render();
+                        });
                     }
                 }
-                wKing() 
             }
-            render()
-        }
-        whiteTurn()
 
-        function blackTurn() {
-            if(board[colIdx][rowIdx - 1] === 0){
-                function bPawn() {
-                    PIECES['-1'].id = selectedCellId
-                    const selectedPawn = document.getElementById(PIECES['-1'].id)
-                
-                    if (selectedCellValue === PIECES['-1'].value && selectedCellId === PIECES['-1'].id) {
-                        if (selectedPawn.classList.contains('highlightedPrimary')) {
-                            selectedPawn.classList.remove('highlightedPrimary')
-                            selectedPawn.classList.remove('highlightedSecondary')
-                            cellSelection = null
-                        } else {
-                            // Remove 'highlightedPrimary' class from all squares
-                            squares.forEach(square => {
-                                if (square.id !== PIECES['-1'].id) {
-                                    square.classList.remove('highlightedPrimary')
-                                    square.classList.remove('highlightedSecondary')
-                                }
-                            })
-                
-                            selectedPawn.classList.add('highlightedPrimary')
-                            cellSelection = true
+            // Check for potential enemy captures
+            if (turn === -1) {
+                if (colIdx + 1 < 8 && rowIdx - 1 >= 0 && board[colIdx + 1][rowIdx - 1] === 1) {
+                    const potentialEnemy = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`);
+                    potentialEnemy.classList.add('highlightedEnemy');
+                    currentlyHighlightedTargetCells.push(potentialEnemy);
 
-                            if(rowIdx === 6 && turn === -1) {
-                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
-                                const potentialMoveTwo = document.getElementById(`c${colIdx}r${rowIdx - 2}`)
-                                potentialMoveOne.classList.add('highlightedSecondary')
-                                potentialMoveTwo.classList.add('highlightedSecondary')
-
-                                potentialMoveOne.addEventListener('click', function() {
-                                    if(turn === -1){
-                                        board[colIdx][rowIdx] = 0
-                                        board[colIdx][rowIdx - 1] = -1
-                                        squares.forEach(square => {
-                                            square.classList.remove('highlightedPrimary')
-                                            square.classList.remove('highlightedSecondary')
-                                        })
-                                        selectedPawn.classList.remove('primaryHighlight')
-                                        newTurn()
-                                        render()
-                                    }
-                                })
-
-                                potentialMoveTwo.addEventListener('click', function() {
-                                    if(turn === -1){
-                                        board[colIdx][rowIdx] = 0
-                                        board[colIdx][rowIdx - 2] = -1
-                                        squares.forEach(square => {
-                                            square.classList.remove('highlightedPrimary')
-                                            square.classList.remove('highlightedSecondary')
-                                        })
-                                        selectedPawn.classList.remove('primaryHighlight')
-                                        newTurn()
-                                        render()
-                                    }
-                                })
-                            } else if(rowIdx !== 6 && turn === -1) {
-                                const potentialMoveOne = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
-                                potentialMoveOne.classList.add('highlightedSecondary')
-                                potentialMoveOne.addEventListener('click', function() {
-                                    if(turn === -1){
-                                        board[colIdx][rowIdx] = 0
-                                        board[colIdx][rowIdx - 1] = -1
-                                        squares.forEach(square => {
-                                            square.classList.remove('highlightedPrimary')
-                                            square.classList.remove('highlightedSecondary')
-                                        })
-                                        selectedPawn.classList.remove('primaryHighlight')
-                                        newTurn()
-                                        render()
-                                    }
-                                })
-                            }
-                        }
-                    }
+                    potentialEnemy.addEventListener('click', function() {
+                        handleEnemyCapture(colIdx, rowIdx, colIdx + 1, rowIdx - 1);
+                        turn *= -1;
+                        render();
+                    });
                 }
-                bPawn() 
-                
-                function bKing() {
-                    PIECES['2'].id = selectedCellId
-                    const selectedPawn = document.getElementById(PIECES['1'].id)
-                
-                    if (selectedCellValue === PIECES['2'].value && selectedCellId === PIECES['2'].id) {
-                        if (selectedPawn.classList.contains('highlightedPrimary')) {
-                            selectedPawn.classList.remove('highlightedPrimary')
-                            cellSelection = null
-                        } else {
-                            // Remove 'highlightedPrimary' class from all squares
-                            squares.forEach(square => {
-                                if (square.id !== PIECES['2'].id) {
-                                    square.classList.remove('highlightedPrimary')
-                                }
-                            })
-                
-                            selectedPawn.classList.add('highlightedPrimary')
-                            cellSelection = true
-                        }
-                    }
+                if (colIdx - 1 >= 0 && rowIdx - 1 >= 0 && board[colIdx - 1][rowIdx - 1] === 1) {
+                    const potentialEnemy = document.getElementById(`c${colIdx - 1}r${rowIdx - 1}`);
+                    potentialEnemy.classList.add('highlightedEnemy');
+                    currentlyHighlightedTargetCells.push(potentialEnemy);
+
+                    potentialEnemy.addEventListener('click', function() {
+                        handleEnemyCapture(colIdx, rowIdx, colIdx - 1, rowIdx - 1);
+                        turn *= -1;
+                        render();
+                    });
                 }
-                bKing() 
             }
-            render()
-        }
-        blackTurn()
-    })
+
+            render();
+        });
+    });
 }
-gamePiece()
+
+gamePiece();
 
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
