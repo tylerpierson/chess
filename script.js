@@ -340,6 +340,45 @@ function gamePiece() {
                 }
             } 
         }
+
+        // Create a BLACK PAWN targeting for LEFT TARGET
+        if(pieceVal === -1 && turn === -1 && board[colIdx - 1][rowIdx - 1] > 0) {
+            const enemyTargetMoveLeft = document.getElementById(`c${colIdx -1}r${rowIdx - 1}`)
+            enemyTargetMoveLeft.classList.add('highlightedEnemy')
+            enemyTargetMoveLeft.addEventListener('click', function(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx - 1] = -1
+                turn *= -1
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedEnemy')
+                    square.classList.remove('highlightedSecondary')
+                })
+                render()
+                return
+            }, {once:true}) 
+        }
+
+        // Create a BLACK PAWN targeting for RIGHT TARGET
+        if(pieceVal === -1 && turn === -1 && board[colIdx + 1][rowIdx - 1] > 0) {
+            const enemyTargetMoveRight = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
+            enemyTargetMoveRight.classList.add('highlightedEnemy')
+            enemyTargetMoveRight.addEventListener('click', function(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx - 1] = -1
+                turn *= -1
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedEnemy')
+                    square.classList.remove('highlightedSecondary')
+                })
+                render()
+                return
+            }, {once:true}) 
+        }
+        
     })
 }
 
