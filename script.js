@@ -189,6 +189,7 @@ function gamePiece() {
 
         const pieceId = document.getElementById(`c${colIdx}r${rowIdx}`)
         const pieceVal = board[colIdx][rowIdx]
+
         // Create WHITE PAWN functionality for SECONDARY MOVE
        if(pieceVal === 1 && turn === 1 && board[colIdx][rowIdx + 1] === 0 && rowIdx !== 1) {
             clearHighlights();
@@ -199,8 +200,13 @@ function gamePiece() {
 
             wPawnSingleMove.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx][rowIdx + 1] = 1
+                if(rowIdx + 1 === 7) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx][rowIdx + 1] = 3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx][rowIdx + 1] = 1
+                }
                 turn *= -1
                 wPawnSingleMove.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -246,14 +252,19 @@ function gamePiece() {
             
         }
 
-        // Create a WHITE PAWN targeting for LEFT TARGET
+        // Create WHITE PAWN targeting for LEFT TARGET
         if(pieceVal === 1 && turn === 1 && board[colIdx - 1][rowIdx + 1] < 0) {
             const enemyTargetMoveLeft = document.getElementById(`c${colIdx -1}r${rowIdx + 1}`)
             enemyTargetMoveLeft.classList.add('highlightedEnemy')
             enemyTargetMoveLeft.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx - 1][rowIdx + 1] = 1
+                if(rowIdx + 1 === 7) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx - 1][rowIdx + 1] = 3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx - 1][rowIdx + 1] = 1
+                }
                 turn *= -1
                 pieceId.classList.remove('highlightedPrimary')
                 squares.forEach(square => {
@@ -265,14 +276,19 @@ function gamePiece() {
             }, {once:true}) 
         }
 
-        // Create a WHITE PAWN targeting for RIGHT TARGET
+        // Create WHITE PAWN targeting for RIGHT TARGET
         if(pieceVal === 1 && turn === 1 && board[colIdx + 1][rowIdx + 1] < 0) {
             const enemyTargetMoveRight = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
             enemyTargetMoveRight.classList.add('highlightedEnemy')
             enemyTargetMoveRight.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx + 1][rowIdx + 1] = 1
+                if(rowIdx + 1 === 7) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx + 1][rowIdx + 1] = 3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx + 1][rowIdx + 1] = 1
+                }
                 turn *= -1
                 pieceId.classList.remove('highlightedPrimary')
                 squares.forEach(square => {
@@ -296,8 +312,13 @@ function gamePiece() {
 
             bPawnSingleMove.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx][rowIdx - 1] = -1
+                if(rowIdx - 1 === 0) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx][rowIdx - 1] = -3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx][rowIdx - 1] = -1
+                }
                 turn *= -1
                 bPawnSingleMove.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -341,14 +362,19 @@ function gamePiece() {
             } 
         }
 
-        // Create a BLACK PAWN targeting for LEFT TARGET
+        // Create BLACK PAWN targeting for LEFT TARGET
         if(pieceVal === -1 && turn === -1 && board[colIdx - 1][rowIdx - 1] > 0) {
             const enemyTargetMoveLeft = document.getElementById(`c${colIdx -1}r${rowIdx - 1}`)
             enemyTargetMoveLeft.classList.add('highlightedEnemy')
             enemyTargetMoveLeft.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx - 1][rowIdx - 1] = -1
+                if(rowIdx - 1 === 0) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx - 1][rowIdx - 1] = -3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx - 1][rowIdx - 1] = -1
+                }
                 turn *= -1
                 pieceId.classList.remove('highlightedPrimary')
                 squares.forEach(square => {
@@ -360,14 +386,19 @@ function gamePiece() {
             }, {once:true}) 
         }
 
-        // Create a BLACK PAWN targeting for RIGHT TARGET
+        // Create BLACK PAWN targeting for RIGHT TARGET
         if(pieceVal === -1 && turn === -1 && board[colIdx + 1][rowIdx - 1] > 0) {
             const enemyTargetMoveRight = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
             enemyTargetMoveRight.classList.add('highlightedEnemy')
             enemyTargetMoveRight.addEventListener('click', function(e) {
                 e.stopPropagation()
-                board[colIdx][rowIdx] = 0
-                board[colIdx + 1][rowIdx - 1] = -1
+                if(rowIdx - 1 === 0) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx + 1][rowIdx - 1] = -3
+                } else {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx + 1][rowIdx - 1] = -1
+                }
                 turn *= -1
                 pieceId.classList.remove('highlightedPrimary')
                 squares.forEach(square => {
