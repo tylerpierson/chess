@@ -119,7 +119,7 @@ function init() {
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
             [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, 0, 0, 2, -1, -3], // 3
+            [3, 1, 0, 0, 0, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
@@ -927,6 +927,454 @@ function gamePiece() {
             listeners[`c${colIdx + 1}r${rowIdx - 1}`].el = blackRightTargetEl 
 
             blackRightTargetEl.addEventListener('click', blackRightTarget, {once:true}) 
+        }
+
+        // Create BLACK KING functionality for NORTHWEST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx + 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 1}`)
+            bKingNorthWestTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingNorthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].fn = blackKingNorthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].el = bKingNorthWestTargetEl
+            bKingNorthWestTargetEl.addEventListener('click', blackKingNorthWestTarget, { once: true })
+        }
+        // Create BLACK KING functionality for NORTHWEST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx + 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 1}`)
+            bKingNorthWestMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingNorthWestMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].fn = blackKingNorthWestMove
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].el = bKingNorthWestMoveEl
+            bKingNorthWestMoveEl.addEventListener('click', blackKingNorthWestMove, { once: true })
+        }
+
+
+        // Create BLACK KING functionality for NORTH TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx][rowIdx + 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthTargetEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+            bKingNorthTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingNorthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx}r${rowIdx + 1}`].fn = blackKingNorthTarget
+            listeners[`c${colIdx}r${rowIdx + 1}`].el = bKingNorthTargetEl
+            bKingNorthTargetEl.addEventListener('click', blackKingNorthTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for NORTH MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx][rowIdx + 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthMoveEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+            bKingNorthMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingNorthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx}r${rowIdx + 1}`].fn = blackKingNorthMove
+            listeners[`c${colIdx}r${rowIdx + 1}`].el = bKingNorthMoveEl
+            bKingNorthMoveEl.addEventListener('click', blackKingNorthMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for NORTHEAST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx + 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
+            bKingNorthEastTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingNorthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].fn = blackKingNorthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].el = bKingNorthEastTargetEl
+            bKingNorthEastTargetEl.addEventListener('click', blackKingNorthEastTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for NORTHEAST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx + 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingNorthEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
+            bKingNorthEastMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingNorthEastMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx + 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].fn = blackKingNorthEastMove
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].el = bKingNorthEastMoveEl
+            bKingNorthEastMoveEl.addEventListener('click', blackKingNorthEastMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for EAST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx}`)
+            bKingEastTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx}`].fn = blackKingEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx}`].el = bKingEastTargetEl
+            bKingEastTargetEl.addEventListener('click', blackKingEastTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for EAST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx}`)
+            bKingEastMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingEastMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx}`].fn = blackKingEastMove
+            listeners[`c${colIdx + 1}r${rowIdx}`].el = bKingEastMoveEl
+            bKingEastMoveEl.addEventListener('click', blackKingEastMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTHEAST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx - 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
+            bKingSouthEastTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingSouthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`].fn = blackKingSouthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`].el = bKingSouthEastTargetEl
+            bKingSouthEastTargetEl.addEventListener('click', blackKingSouthEastTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTHEAST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx + 1][rowIdx - 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
+            bKingSouthEastMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingSouthEastMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`].fn = blackKingSouthEastMove
+            listeners[`c${colIdx + 1}r${rowIdx - 1}`].el = bKingSouthEastMoveEl
+            bKingSouthEastMoveEl.addEventListener('click', blackKingSouthEastMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTH TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx][rowIdx - 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthTargetEl = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
+            bKingSouthTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingSouthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx}r${rowIdx - 1}`].fn = blackKingSouthTarget
+            listeners[`c${colIdx}r${rowIdx - 1}`].el = bKingSouthTargetEl
+            bKingSouthTargetEl.addEventListener('click', blackKingSouthTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTH MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx][rowIdx - 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthMoveEl = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
+            bKingSouthMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingSouthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx}r${rowIdx - 1}`].fn = blackKingSouthMove
+            listeners[`c${colIdx}r${rowIdx - 1}`].el = bKingSouthMoveEl
+            bKingSouthMoveEl.addEventListener('click', blackKingSouthMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTHWEST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx - 1] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 1}`)
+            bKingSouthWestTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingSouthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`].fn = blackKingSouthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`].el = bKingSouthWestTargetEl
+            bKingSouthWestTargetEl.addEventListener('click', blackKingSouthWestTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for SOUTHWEST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx - 1] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingSouthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 1}`)
+            bKingSouthWestMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingSouthWestMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx - 1] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`].fn = blackKingSouthWestMove
+            listeners[`c${colIdx - 1}r${rowIdx - 1}`].el = bKingSouthWestMoveEl
+            bKingSouthWestMoveEl.addEventListener('click', blackKingSouthWestMove, { once: true })
+        }
+
+        // Create BLACK KING functionality for WEST TARGET
+        if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx] > 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx}`)
+            bKingWestTargetEl.classList.add('highlightedEnemy')
+
+            function blackKingWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx] = -2
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx}`].fn = blackKingWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx}`].el = bKingWestTargetEl
+            bKingWestTargetEl.addEventListener('click', blackKingWestTarget, { once: true })
+        }
+
+        // Create BLACK KING functionality for WEST MOVE
+        else if (pieceVal === -2 && turn === -1 && board[colIdx - 1][rowIdx] === 0) {
+            pieceId.classList.add('highlightedPrimary')
+            const bKingWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx}`)
+            bKingWestMoveEl.classList.add('highlightedSecondary')
+
+            function blackKingWestMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx] = -2
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx}`].fn = blackKingWestMove
+            listeners[`c${colIdx - 1}r${rowIdx}`].el = bKingWestMoveEl
+            bKingWestMoveEl.addEventListener('click', blackKingWestMove, { once: true })
         }
     })
 }
