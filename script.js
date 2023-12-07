@@ -119,7 +119,7 @@ function init() {
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
             [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, 0, 5, 0, -1, -3], // 3
+            [3, 1, 0, -5, 0, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
@@ -1928,6 +1928,544 @@ function gamePiece() {
             listeners[`c${colIdx - 1}r${rowIdx}`].fn = blackKingWestMove
             listeners[`c${colIdx - 1}r${rowIdx}`].el = bKingWestMoveEl
             bKingWestMoveEl.addEventListener('click', blackKingWestMove, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for WESTNORTH TARGET
+        if ((
+            pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length && // Check if the column index is within the board range
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length && // Check if the row index is within the board range
+            board[colIdx - 2][rowIdx + 1] > 0
+        )) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightWestNorthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
+            knightWestNorthTargetEl.classList.add('highlightedEnemy')
+
+            function knightWestNorthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx + 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].fn = knightWestNorthTarget
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].el = knightWestNorthTargetEl
+
+            knightWestNorthTargetEl.addEventListener('click', knightWestNorthTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for WESTNORTH MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx - 2][rowIdx + 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightWestNorthMoveEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
+            knightWestNorthMoveEl.classList.add('highlightedSecondary')
+
+            function knightWestNorthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx + 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].fn = knightWestNorthMove
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].el = knightWestNorthMoveEl
+
+            knightWestNorthMoveEl.addEventListener('click', knightWestNorthMove, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for NORTHWEST TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx - 1][rowIdx + 2] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
+            knightNorthWestTargetEl.classList.add('highlightedEnemy')
+
+            function knightNorthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].fn = knightNorthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].el = knightNorthWestTargetEl
+
+            knightNorthWestTargetEl.addEventListener('click', knightNorthWestTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for NORTHWEST MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx - 1][rowIdx + 2] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
+            knightNorthWestMoveEl.classList.add('highlightedSecondary')
+
+            function knightNorthWestMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].fn = knightNorthWestMove
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].el = knightNorthWestMoveEl
+
+            knightNorthWestMoveEl.addEventListener('click', knightNorthWestMove, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for NORTHEAST TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 1 >= 0 && colIdx + 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx + 1][rowIdx + 2] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
+            knightNorthEastTargetEl.classList.add('highlightedEnemy')
+
+            function knightNorthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx + 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`].fn = knightNorthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`].el = knightNorthEastTargetEl
+
+            knightNorthEastTargetEl.addEventListener('click', knightNorthEastTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for NORTHEAST MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 1 >= 0 && colIdx + 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx + 1][rowIdx + 2] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
+            knightNorthEastTargetEl.classList.add('highlightedSecondary')
+
+            function knightNorthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx + 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`].fn = knightNorthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx + 2}`].el = knightNorthEastTargetEl
+
+            knightNorthEastTargetEl.addEventListener('click', knightNorthEastTarget, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for EASTNORTH TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx + 2][rowIdx + 1] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightEastNorthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
+            knightEastNorthTargetEl.classList.add('highlightedEnemy')
+
+            function knightEastNorthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx + 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].fn = knightEastNorthTarget
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].el = knightEastNorthTargetEl
+
+            knightEastNorthTargetEl.addEventListener('click', knightEastNorthTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for EASTNORTH MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx + 2][rowIdx + 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightEastNorthMoveEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
+            knightEastNorthMoveEl.classList.add('highlightedSecondary')
+
+            function knightEastNorthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx + 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].fn = knightEastNorthMove
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].el = knightEastNorthMoveEl
+
+            knightEastNorthMoveEl.addEventListener('click', knightEastNorthMove, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for EASTSOUTH TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
+            board[colIdx + 2][rowIdx - 1] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
+            knightEastSouthTargetEl.classList.add('highlightedEnemy')
+
+            function knightEastSouthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx - 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`].fn = knightEastSouthTarget
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`].el = knightEastSouthTargetEl
+
+            knightEastSouthTargetEl.addEventListener('click', knightEastSouthTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for EASTSOUTH MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
+            board[colIdx + 2][rowIdx - 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
+            knightEastSouthTargetEl.classList.add('highlightedSecondary')
+
+            function knightEastSouthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx - 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`].fn = knightEastSouthTarget
+            listeners[`c${colIdx + 2}r${rowIdx - 1}`].el = knightEastSouthTargetEl
+
+            knightEastSouthTargetEl.addEventListener('click', knightEastSouthTarget, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for SOUTHEAST TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 1 >= 0 && colIdx + 1 < board.length &&
+            rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
+            board[colIdx + 1][rowIdx - 2] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
+            knightSouthEastTargetEl.classList.add('highlightedEnemy')
+
+            function knightSouthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx - 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`].fn = knightSouthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`].el = knightSouthEastTargetEl
+
+            knightSouthEastTargetEl.addEventListener('click', knightSouthEastTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for SOUTHEAST MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx + 1 >= 0 && colIdx + 1 < board.length &&
+            rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
+            board[colIdx + 1][rowIdx - 2] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
+            knightSouthEastTargetEl.classList.add('highlightedSecondary')
+
+            function knightSouthEastTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 1][rowIdx - 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`].fn = knightSouthEastTarget
+            listeners[`c${colIdx + 1}r${rowIdx - 2}`].el = knightSouthEastTargetEl
+
+            knightSouthEastTargetEl.addEventListener('click', knightSouthEastTarget, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for SOUTHWEST TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
+            board[colIdx - 1][rowIdx - 2] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
+            knightSouthWestTargetEl.classList.add('highlightedEnemy')
+
+            function knightSouthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx - 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`].fn = knightSouthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`].el = knightSouthWestTargetEl
+
+            knightSouthWestTargetEl.addEventListener('click', knightSouthWestTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for SOUTHWEST MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
+            board[colIdx - 1][rowIdx - 2] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
+            knightSouthWestTargetEl.classList.add('highlightedSecondary')
+
+            function knightSouthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx - 2] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`].fn = knightSouthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx - 2}`].el = knightSouthWestTargetEl
+
+            knightSouthWestTargetEl.addEventListener('click', knightSouthWestTarget, { once: true })
+        }
+
+        // Create BLACK KNIGHT functionality for WESTSOUTH TARGET
+        if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length &&
+            rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
+            board[colIdx - 2][rowIdx - 1] > 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
+            knightWestSouthTargetEl.classList.add('highlightedEnemy')
+
+            function knightWestSouthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx - 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`].fn = knightWestSouthTarget
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`].el = knightWestSouthTargetEl
+
+            knightWestSouthTargetEl.addEventListener('click', knightWestSouthTarget, { once: true })
+        }
+        // Create BLACK KNIGHT functionality for WESTSOUTH MOVE
+        else if (pieceVal === -5 &&
+            turn === -1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length &&
+            rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
+            board[colIdx - 2][rowIdx - 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
+            knightWestSouthTargetEl.classList.add('highlightedSecondary')
+
+            function knightWestSouthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx - 1] = -5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`].fn = knightWestSouthTarget
+            listeners[`c${colIdx - 2}r${rowIdx - 1}`].el = knightWestSouthTargetEl
+
+            knightWestSouthTargetEl.addEventListener('click', knightWestSouthTarget, { once: true })
         }
     })
 }
