@@ -119,7 +119,7 @@ function init() {
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
             [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, 3, 0, 0, -1, -3], // 3
+            [3, 1, 0, -3, 0, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
@@ -913,7 +913,7 @@ function gamePiece() {
 
                         enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
                     }
-                    break; // Stop iterating if there's any piece in the way
+                    break
                 } else {
                     const queenMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
                     queenMoveEl.classList.add('highlightedSecondary')
@@ -1360,8 +1360,6 @@ function gamePiece() {
                 }
             }
         }
-
-        
 
         // Create WHITE KNIGHT functionality for WESTNORTH TARGET
         if ((
@@ -2487,6 +2485,563 @@ function gamePiece() {
             listeners[`c${colIdx - 1}r${rowIdx}`].fn = blackKingWestMove
             listeners[`c${colIdx - 1}r${rowIdx}`].el = bKingWestMoveEl
             bKingWestMoveEl.addEventListener('click', blackKingWestMove, { once: true })
+        }
+
+        // Create BLACK QUEEN movement and targeting NORTH
+        if (pieceVal === -3 && turn === -1) {
+            clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+
+                if (nextRowIdx >= 8) break
+
+                const nextSquare = board[colIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[colIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${colIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break; // Stop iterating if there's any piece in the way
+                } else {
+                    const queenMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${colIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create BLACK QUEEN movement and targeting NORTHEAST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create BLACK QUEEN movement and targeting EAST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextColIdx = colIdx + i
+
+                if (rowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][rowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${rowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][rowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${rowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${rowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][rowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${rowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create BLACK QUEEN movement and targeting SOUTHEAST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create BLACK QUEEN movement and targeting SOUTH
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (colIdx < 0 || colIdx >= 8) break                
+
+                const nextSquare = board[colIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[colIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${colIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${colIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create BLACK QUEEN movement and targeting SOUTHWEST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break                
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+        
+        // Create BLACK QUEEN movement and targeting WEST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextColIdx = colIdx - i
+
+                if (rowIdx >= 8 || rowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break
+                
+
+                const nextSquare = board[nextColIdx][rowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${rowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][rowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${rowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${rowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][rowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${rowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE QUEEN movement and targeting NORTHWEST
+        if (pieceVal === -3 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function queenMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -3
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: queenMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const queenMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    queenMoveEl.classList.add('highlightedSecondary')
+
+                    function queenMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: queenMove,
+                        el: queenMoveEl
+                    }
+
+                    queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
         }
 
         // Create BLACK KNIGHT functionality for WESTNORTH TARGET
