@@ -119,7 +119,7 @@ function init() {
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
             [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, 0, 0, 0, -1, -3], // 3
+            [3, 1, 0, 5, 0, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
@@ -342,6 +342,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for NORTHWEST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx + 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 1}`)
             wKingNorthWestTargetEl.classList.add('highlightedEnemy')
@@ -369,6 +370,7 @@ function gamePiece() {
         }
         // Create WHITE KING functionality for NORTHWEST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx + 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 1}`)
             wKingNorthWestMoveEl.classList.add('highlightedSecondary')
@@ -398,6 +400,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for NORTH TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx][rowIdx + 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthTargetEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
             wKingNorthTargetEl.classList.add('highlightedEnemy')
@@ -426,6 +429,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for NORTH MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx][rowIdx + 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthMoveEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
             wKingNorthMoveEl.classList.add('highlightedSecondary')
@@ -454,6 +458,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for NORTHEAST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx + 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
             wKingNorthEastTargetEl.classList.add('highlightedEnemy')
@@ -482,6 +487,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for NORTHEAST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx + 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingNorthEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
             wKingNorthEastMoveEl.classList.add('highlightedSecondary')
@@ -510,6 +516,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for EAST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx}`)
             wKingEastTargetEl.classList.add('highlightedEnemy')
@@ -538,6 +545,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for EAST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx}`)
             wKingEastMoveEl.classList.add('highlightedSecondary')
@@ -566,6 +574,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTHEAST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx - 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
             wKingSouthEastTargetEl.classList.add('highlightedEnemy')
@@ -594,6 +603,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTHEAST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx + 1][rowIdx - 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthEastMoveEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 1}`)
             wKingSouthEastMoveEl.classList.add('highlightedSecondary')
@@ -622,6 +632,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTH TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx][rowIdx - 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthTargetEl = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
             wKingSouthTargetEl.classList.add('highlightedEnemy')
@@ -650,6 +661,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTH MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx][rowIdx - 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthMoveEl = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
             wKingSouthMoveEl.classList.add('highlightedSecondary')
@@ -678,6 +690,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTHWEST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx - 1] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 1}`)
             wKingSouthWestTargetEl.classList.add('highlightedEnemy')
@@ -706,6 +719,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for SOUTHWEST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx - 1] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingSouthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 1}`)
             wKingSouthWestMoveEl.classList.add('highlightedSecondary')
@@ -734,6 +748,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for WEST TARGET
         if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx] < 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx}`)
             wKingWestTargetEl.classList.add('highlightedEnemy')
@@ -762,6 +777,7 @@ function gamePiece() {
 
         // Create WHITE KING functionality for WEST MOVE
         else if (pieceVal === 2 && turn === 1 && board[colIdx - 1][rowIdx] === 0) {
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const wKingWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx}`)
             wKingWestMoveEl.classList.add('highlightedSecondary')
@@ -786,6 +802,209 @@ function gamePiece() {
             listeners[`c${colIdx - 1}r${rowIdx}`].fn = whiteKingWestMove
             listeners[`c${colIdx - 1}r${rowIdx}`].el = wKingWestMoveEl
             wKingWestMoveEl.addEventListener('click', whiteKingWestMove, { once: true })
+        }
+
+        // Create WHITE KNIGHT functionality for WESTNORTH TARGET
+        if ((
+            pieceVal === 5 &&
+            turn === 1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length && // Check if the column index is within the board range
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length && // Check if the row index is within the board range
+            board[colIdx - 2][rowIdx + 1] < 0
+        )) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightWestNorthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
+            wKnightWestNorthTargetEl.classList.add('highlightedEnemy')
+
+            function whiteKnightWestNorthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx + 1] = 5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].fn = whiteKnightWestNorthTarget
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].el = wKnightWestNorthTargetEl
+
+            wKnightWestNorthTargetEl.addEventListener('click', whiteKnightWestNorthTarget, { once: true })
+        }
+        // Create WHITE KNIGHT functionality for WESTNORTH MOVE
+        else if (pieceVal === 5 &&
+            turn === 1 &&
+            colIdx - 2 >= 0 && colIdx - 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx - 2][rowIdx + 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightWestNorthMoveEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
+            wKnightWestNorthMoveEl.classList.add('highlightedSecondary')
+
+            function whiteKnightWestNorthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 2][rowIdx + 1] = 5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].fn = whiteKnightWestNorthMove
+            listeners[`c${colIdx - 2}r${rowIdx + 1}`].el = wKnightWestNorthMoveEl
+
+            wKnightWestNorthMoveEl.addEventListener('click', whiteKnightWestNorthMove, { once: true })
+        }
+
+        // Create WHITE KNIGHT functionality for NORTHWEST TARGET
+        if (pieceVal === 5 &&
+            turn === 1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx - 1][rowIdx + 2] < 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
+            wKnightNorthWestTargetEl.classList.add('highlightedEnemy')
+
+            function whiteKnightNorthWestTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 2] = 5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].fn = whiteKnightNorthWestTarget
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].el = wKnightNorthWestTargetEl
+
+            wKnightNorthWestTargetEl.addEventListener('click', whiteKnightNorthWestTarget, { once: true })
+        }
+        // Create WHITE KNIGHT functionality for NORTHWEST MOVE
+        else if (pieceVal === 5 &&
+            turn === 1 &&
+            colIdx - 1 >= 0 && colIdx - 1 < board.length &&
+            rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
+            board[colIdx - 1][rowIdx + 2] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
+            wKnightNorthWestMoveEl.classList.add('highlightedSecondary')
+
+            function whiteKnightNorthWestMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx - 1][rowIdx + 2] = 5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].fn = whiteKnightNorthWestMove
+            listeners[`c${colIdx - 1}r${rowIdx + 2}`].el = wKnightNorthWestMoveEl
+
+            wKnightNorthWestMoveEl.addEventListener('click', whiteKnightNorthWestMove, { once: true })
+        }
+
+        // Create WHITE KNIGHT functionality for EASTNORTH TARGET
+        if (pieceVal === 5 &&
+            turn === 1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx + 2][rowIdx + 1] < 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightEastNorthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
+            wKnightEastNorthTargetEl.classList.add('highlightedEnemy')
+
+            function whiteKnightEastNorthTarget(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx + 1] = 5
+                turn *= -1
+                this.classList.remove('highlightedEnemy')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].fn = whiteKnightEastNorthTarget
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].el = wKnightEastNorthTargetEl
+
+            wKnightEastNorthTargetEl.addEventListener('click', whiteKnightEastNorthTarget, { once: true })
+        }
+        // Create WHITE KNIGHT functionality for EASTNORTH MOVE
+        else if (pieceVal === 5 &&
+            turn === 1 &&
+            colIdx + 2 >= 0 && colIdx + 2 < board.length &&
+            rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
+            board[colIdx + 2][rowIdx + 1] === 0) {
+            // clearHighlights()
+            pieceId.classList.add('highlightedPrimary')
+            const wKnightEastNorthMoveEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
+            wKnightEastNorthMoveEl.classList.add('highlightedSecondary')
+
+            function whiteKnightEastNorthMove(e) {
+                e.stopPropagation()
+                board[colIdx][rowIdx] = 0
+                board[colIdx + 2][rowIdx + 1] = 5
+                turn *= -1
+                this.classList.remove('highlightedSecondary')
+                pieceId.classList.remove('highlightedPrimary')
+                squares.forEach(square => {
+                    square.classList.remove('highlightedSecondary')
+                    square.classList.remove('highlightedEnemy')
+                })
+                render()
+                removeListeners()
+                return
+            }
+
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].fn = whiteKnightEastNorthMove
+            listeners[`c${colIdx + 2}r${rowIdx + 1}`].el = wKnightEastNorthMoveEl
+
+            wKnightEastNorthMoveEl.addEventListener('click', whiteKnightEastNorthMove, { once: true })
         }
 
 
