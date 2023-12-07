@@ -13,78 +13,18 @@ const PLAYERS = {
 
 // Create a PIECES object to store each type of game piece along with their color and image src
 const PIECES = {
-    '1': {
-        name: 'pawn',
-        value: 1,
-        color: 'white',
-        img: 'https://i.imgur.com/hAOAJM9.png'
-    },
-    '2': {
-        name: 'king',
-        value: 2,
-        color: 'white',
-        img: 'https://i.imgur.com/dRJVxWQ.png'
-    },
-    '3': {
-        name: 'queen',
-        value: 3,
-        color: 'white',
-        img: 'https://i.imgur.com/eEf9ra1.png'
-    },
-    '4': {
-        name: 'bishop',
-        value: 4,
-        color: 'white',
-        img: 'https://i.imgur.com/gHlGvlG.png'
-    },
-    '5': {
-        name: 'knight',
-        value: 5,
-        color: 'white',
-        img: 'https://i.imgur.com/gNdQZ3v.png'
-    },
-    '6': {
-        name: 'rook',
-        value: 6,
-        color: 'white',
-        img: 'https://i.imgur.com/APXYS0C.png'
-    },
-    '-1': {
-        name: 'pawn',
-        value: -1,
-        color: 'black',
-        img: 'https://i.imgur.com/67vxdVo.png'
-    },
-    '-2': {
-        name: 'king',
-        value: -2,
-        color: 'black',
-        img: 'https://i.imgur.com/W6wYXyH.png'
-    },
-    '-3': {
-        name: 'queen',
-        value: -3,
-        color: 'black',
-        img: 'https://i.imgur.com/met06db.png'
-    },
-    '-4': {
-        name: 'bishop',
-        value: -4,
-        color: 'black',
-        img: 'https://i.imgur.com/vwztxFW.png'
-    },
-    '-5': {
-        name: 'knight',
-        value: -5,
-        color: 'black',
-        img: 'https://i.imgur.com/FaZ3WKc.png'
-    },
-    '-6': {
-        name: 'rook',
-        value: -6,
-        color: 'black',
-        img: 'https://i.imgur.com/nQX2bU8.png'
-    }
+    '1': {img: 'https://i.imgur.com/hAOAJM9.png'}, // White Pawn
+    '2': {img: 'https://i.imgur.com/dRJVxWQ.png'}, // White King
+    '3': {img: 'https://i.imgur.com/eEf9ra1.png'}, // White Queen
+    '4': {img: 'https://i.imgur.com/gHlGvlG.png'}, // White Bishop
+    '5': {img: 'https://i.imgur.com/gNdQZ3v.png'}, // White Knight
+    '6': {img: 'https://i.imgur.com/APXYS0C.png'}, // White Rook
+    '-1': {img: 'https://i.imgur.com/67vxdVo.png'}, // Black Pawn
+    '-2': {img: 'https://i.imgur.com/W6wYXyH.png'}, // Black King
+    '-3': {img: 'https://i.imgur.com/met06db.png'}, // Black Queen
+    '-4': {img: 'https://i.imgur.com/vwztxFW.png'}, // Black Bishop
+    '-5': {img: 'https://i.imgur.com/FaZ3WKc.png'}, // Black Knight
+    '-6': {img: 'https://i.imgur.com/nQX2bU8.png'} // Black Rook
 }
 
 // State Variables
@@ -124,7 +64,7 @@ function init() {
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
             [6, 1, 0, 0, 0, 0, -1, -6]  // 7
-        ];
+        ]
 
     // The game is initiated with the winner set to 'null' until the game ends
     winner = null
@@ -146,8 +86,8 @@ function clearHighlights() {
         square.classList.remove('highlightedPrimary')
         square.classList.remove('highlightedSecondary')
         square.classList.remove('highlightedEnemy')
-    });
-};
+    })
+}
 
 // Create a renderBoard function
 function renderBoard() {
@@ -169,15 +109,15 @@ function renderBoard() {
                 imgEl.setAttribute('id', cellId)
                 cellEl.appendChild(imgEl)
             }
-        });
-    });
+        })
+    })
 }
 
 function clearHighlights() {
-    const highlightedElements = document.querySelectorAll('.highlightedPrimary, .highlightedSecondary');
+    const highlightedElements = document.querySelectorAll('.highlightedPrimary, .highlightedSecondary')
     highlightedElements.forEach(element => {
-        element.classList.remove('highlightedPrimary', 'highlightedSecondary');
-    });
+        element.classList.remove('highlightedPrimary', 'highlightedSecondary')
+    })
 }
 
 const listeners = {}
@@ -203,7 +143,7 @@ function gamePiece() {
         
         // Create WHITE PAWN functionality for SECONDARY MOVE
        if(pieceVal === 1 && turn === 1 && board[colIdx][rowIdx + 1] === 0 && rowIdx !== 1) {
-            clearHighlights();
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             
             const wPawnSingleMoveEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
@@ -235,10 +175,10 @@ function gamePiece() {
             
         // Create WHITE PAWN functionality for INITIAL MOVE
         } else if(pieceVal === 1 && turn === 1 && board[colIdx][rowIdx + 1] === 0 && rowIdx === 1) {
-            clearHighlights();
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             
-            let playerMoved = false;
+            let playerMoved = false
 
             for (let i = 1; i <= 2; i++) {
                 const wPawnInitialMoveEl = document.getElementById(`c${colIdx}r${rowIdx + i}`)
@@ -248,7 +188,7 @@ function gamePiece() {
                     function whitePawnInitialMove(e) {
                         e.stopPropagation()
                         if (!playerMoved) { 
-                            playerMoved = true;
+                            playerMoved = true
                             board[colIdx][rowIdx] = 0
                             board[colIdx][rowIdx + i] = 1
                             turn *= -1
@@ -271,7 +211,7 @@ function gamePiece() {
                 wPawnInitialMoveEl.addEventListener('click', whitePawnInitialMove, { once: true })
                 
                 if (playerMoved) {
-                    break;
+                    break
                 }
             }
             
@@ -843,7 +783,7 @@ function gamePiece() {
 
                         enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
                     }
-                    break; // Stop iterating if there's any piece in the way
+                    break
                 } else {
                     const queenMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
                     queenMoveEl.classList.add('highlightedSecondary')
@@ -2223,7 +2163,7 @@ function gamePiece() {
 
                         enemyEl.addEventListener('click', rookMoveToEnemy, { once: true })
                     }
-                    break; // Stop iterating if there's any piece in the way
+                    break
                 } else {
                     const rookMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
                     rookMoveEl.classList.add('highlightedSecondary')
@@ -2463,7 +2403,7 @@ function gamePiece() {
 
         // Create BLACK PAWN functionality for SECONDARY MOVE
        if(pieceVal === -1 && turn === -1 && board[colIdx][rowIdx - 1] === 0 && rowIdx !== 6) {
-        clearHighlights();
+        clearHighlights()
         pieceId.classList.add('highlightedPrimary')
         
         const bPawnSingleMoveEl = document.getElementById(`c${colIdx}r${rowIdx - 1}`)
@@ -2495,10 +2435,10 @@ function gamePiece() {
             
         // Create BLACK PAWN functionality for INITIAL MOVE
         } else if(pieceVal === -1 && turn === -1 && board[colIdx][rowIdx - 1] === 0 && rowIdx === 6) {
-            clearHighlights();
+            clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             
-            let playerMoved = false;
+            let playerMoved = false
 
             for (let i = 1; i <= 2; i++) {
                 const bPawnInitialMoveEl = document.getElementById(`c${colIdx}r${rowIdx - i}`)
@@ -2508,7 +2448,7 @@ function gamePiece() {
                     function blackPawnInitialMove(e) {
                         e.stopPropagation()
                         if (!playerMoved) { 
-                            playerMoved = true;
+                            playerMoved = true
                             board[colIdx][rowIdx] = 0
                             board[colIdx][rowIdx - i] = -1
                             turn *= -1
@@ -2531,7 +2471,7 @@ function gamePiece() {
                 bPawnInitialMoveEl.addEventListener('click', blackPawnInitialMove, { once: true })
                 
                 if (playerMoved) {
-                    break;
+                    break
                 }
             }
             
@@ -4703,7 +4643,7 @@ function gamePiece() {
     })
 }
 
-gamePiece();
+gamePiece()
 
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
