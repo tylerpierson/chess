@@ -180,6 +180,9 @@ function clearHighlights() {
     });
 }
 
+const listeners = {}
+
+
 function gamePiece() {
     mainBoard.addEventListener('click', function(evt) {
         const colIndex = evt.target.id.charAt(1)
@@ -189,16 +192,26 @@ function gamePiece() {
 
         const pieceId = document.getElementById(`c${colIdx}r${rowIdx}`)
         const pieceVal = board[colIdx][rowIdx]
+        
 
+        function removeListeners() {
+            console.log(listeners)
+            for(let key in listeners) {
+                listeners[key].el.removeEventListener('click', listeners[key].fn)
+                delete listeners[key]
+            }
+            console.log(listeners)
+        }
+        
         // Create WHITE PAWN functionality for SECONDARY MOVE
        if(pieceVal === 1 && turn === 1 && board[colIdx][rowIdx + 1] === 0 && rowIdx !== 1) {
             clearHighlights();
             pieceId.classList.add('highlightedPrimary')
             
-            const wPawnSingleMove = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
-            wPawnSingleMove.classList.add('highlightedSecondary')
+            const wPawnSingleMoveEl = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+            wPawnSingleMoveEl.classList.add('highlightedSecondary')
 
-            wPawnSingleMove.addEventListener('click', function(e) {
+            function whitePawnSingleMove(e) {
                 e.stopPropagation()
                 if(rowIdx + 1 === 7) {
                     board[colIdx][rowIdx] = 0
@@ -208,14 +221,20 @@ function gamePiece() {
                     board[colIdx][rowIdx + 1] = 1
                 }
                 turn *= -1
-                wPawnSingleMove.classList.remove('highlightedSecondary')
+                this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
                 squares.forEach(square => {
                     square.classList.remove('highlightedEnemy')
                 })
                 render()
+                removeListeners()
                 return
-            }, {once:true}) 
+            }
+            listeners[`c${colIdx}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx}r${rowIdx + 1}`].fn = whitePawnSingleMove 
+            listeners[`c${colIdx}r${rowIdx + 1}`].el = wPawnSingleMoveEl 
+            console.log(listeners)
+            wPawnSingleMoveEl.addEventListener('click', whitePawnSingleMove, {once:true}) 
             
         // Create WHITE PAWN functionality for INITIAL MOVE
         } else if(pieceVal === 1 && turn === 1 && board[colIdx][rowIdx + 1] === 0 && rowIdx === 1) {
@@ -225,10 +244,10 @@ function gamePiece() {
             let playerMoved = false;
 
             for (let i = 1; i <= 2; i++) {
-                const wPawnInitialMove = document.getElementById(`c${colIdx}r${rowIdx + i}`)
-                wPawnInitialMove.classList.add('highlightedSecondary')
+                const wPawnInitialMoveEl = document.getElementById(`c${colIdx}r${rowIdx + i}`)
+                wPawnInitialMoveEl.classList.add('highlightedSecondary')
             
-                wPawnInitialMove.addEventListener('click', function(e) {
+                function whitePawnInitialMove(e) {
                     e.stopPropagation()
                     if (!playerMoved) { 
                         playerMoved = true;
@@ -239,11 +258,19 @@ function gamePiece() {
                             square.classList.remove('highlightedSecondary')
                             square.classList.remove('highlightedEnemy')
                         })
-                        wPawnInitialMove.classList.remove('highlightedSecondary')
+                        wPawnInitialMoveEl.classList.remove('highlightedSecondary')
                         pieceId.classList.remove('highlightedPrimary')
                         render()
+                        removeListeners()
+                        return
                     }
-                }, { once: true })
+                }
+
+                listeners[`c${colIdx}r${rowIdx + i}`] = {}
+                listeners[`c${colIdx}r${rowIdx + i}`].fn = whitePawnInitialMove 
+                listeners[`c${colIdx}r${rowIdx + i}`].el = wPawnInitialMoveEl 
+                console.log(listeners)
+                wPawnInitialMoveEl.addEventListener('click', whitePawnInitialMove, { once: true })
                 
                 if (playerMoved) {
                     break;
@@ -254,9 +281,10 @@ function gamePiece() {
 
         // Create WHITE PAWN targeting for LEFT TARGET
         if(pieceVal === 1 && turn === 1 && board[colIdx - 1][rowIdx + 1] < 0) {
-            const enemyTargetMoveLeft = document.getElementById(`c${colIdx -1}r${rowIdx + 1}`)
-            enemyTargetMoveLeft.classList.add('highlightedEnemy')
-            enemyTargetMoveLeft.addEventListener('click', function(e) {
+            const whiteLeftTargetEl = document.getElementById(`c${colIdx -1}r${rowIdx + 1}`)
+            whiteLeftTargetEl.classList.add('highlightedEnemy')
+
+            function whiteLeftTarget(e) {
                 e.stopPropagation()
                 if(rowIdx + 1 === 7) {
                     board[colIdx][rowIdx] = 0
@@ -273,14 +301,22 @@ function gamePiece() {
                 })
                 render()
                 return
-            }, {once:true}) 
+            }
+
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].fn = whiteLeftTarget 
+            listeners[`c${colIdx - 1}r${rowIdx + 1}`].el = whiteLeftTargetEl 
+            console.log(listeners)
+
+            whiteLeftTargetEl.addEventListener('click', whiteLeftTarget, {once:true}) 
         }
 
         // Create WHITE PAWN targeting for RIGHT TARGET
         if(pieceVal === 1 && turn === 1 && board[colIdx + 1][rowIdx + 1] < 0) {
-            const enemyTargetMoveRight = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
-            enemyTargetMoveRight.classList.add('highlightedEnemy')
-            enemyTargetMoveRight.addEventListener('click', function(e) {
+            const whiteRightTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 1}`)
+            whiteRightTargetEl.classList.add('highlightedEnemy')
+
+            function whiteRightTarget(e) {
                 e.stopPropagation()
                 if(rowIdx + 1 === 7) {
                     board[colIdx][rowIdx] = 0
@@ -296,14 +332,21 @@ function gamePiece() {
                     square.classList.remove('highlightedSecondary')
                 })
                 render()
+                removeListeners()
                 return
-            }, {once:true}) 
+            }
+
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`] = {}
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].fn = whiteRightTarget 
+            listeners[`c${colIdx + 1}r${rowIdx + 1}`].el = whiteRightTargetEl 
+            console.log(listeners)
+
+            whiteRightTargetEl.addEventListener('click', whiteRightTarget, {once:true}) 
         }
         
 
         // Create BLACK PAWN functionality for SECONDARY MOVE
         if(pieceVal === -1 && turn === -1 && board[colIdx][rowIdx - 1] === 0 && rowIdx !== 6) {
-            console.log('testing else')
             clearHighlights();
             pieceId.classList.add('highlightedPrimary')
             
@@ -323,13 +366,13 @@ function gamePiece() {
                 bPawnSingleMove.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
                 console.log(turn)
+                removeListeners()
                 render()
                 return
             }, {once:true}) 
             
         // Create BLACK PAWN functionality for INITIAL MOVE
         } else if(pieceVal === -1 && turn === -1 && board[colIdx][rowIdx - 1] === 0 && rowIdx === 6) {
-            console.log('testing else if')
             clearHighlights();
             pieceId.classList.add('highlightedPrimary')
             
@@ -409,7 +452,85 @@ function gamePiece() {
                 return
             }, {once:true}) 
         }
-        
+
+        // Create WHITE QUEEN functionality for NORTH movement && NORTH TARGETING
+    if (pieceVal === 3 && turn === 1 && board[colIdx][rowIdx + 1] === 0) {
+        clearHighlights();
+        pieceId.classList.add('highlightedPrimary')
+
+        let playerMoved = false;
+        let enemyHighlighted = false; // Flag to track if an enemy has been highlighted
+
+        for (let i = 1; i <= board.length; i++) {
+            const wQueenNorthMove = document.getElementById(`c${colIdx}r${rowIdx + i}`)
+            if (board[colIdx][rowIdx + i] === 0) {
+                wQueenNorthMove.classList.add('highlightedSecondary')
+
+                wQueenNorthMove.addEventListener('click', function (e) {
+                    e.stopPropagation()
+                    if (!playerMoved) {
+                        playerMoved = true;
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][rowIdx + i] = 3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        wQueenNorthMove.classList.remove('highlightedSecondary')
+                        wQueenNorthMove.classList.remove('highlightedEnemy')
+                        pieceId.classList.remove('highlightedPrimary')
+                        console.log(turn)
+                        render()
+                    }
+                }, { once: true })
+            }
+            
+            if (board[colIdx][rowIdx + i] < 0 && !enemyHighlighted) {
+                wQueenNorthMove.classList.add('highlightedEnemy')
+                enemyHighlighted = true
+
+                wQueenNorthMove.addEventListener('click', function (e) {
+                    e.stopPropagation()
+                    if (!playerMoved) {
+                        playerMoved = true;
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][rowIdx + i] = 3
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        wQueenNorthMove.classList.remove('highlightedSecondary')
+                        wQueenNorthMove.classList.remove('highlightedEnemy')
+                        pieceId.classList.remove('highlightedPrimary')
+                        console.log(turn)
+                        render()
+                    }
+                }, { once: true })
+            } else if (board[colIdx][rowIdx + 1] < 0 && !enemyHighlighted) {
+                wQueenNorthMove.classList.add('highlightedEnemy')
+
+                wQueenNorthMove.addEventListener('click', function() {
+                    e.stopPropagation()
+                    const enemyTarget = document.getElementById(`c${colIdx}r${rowIdx + 1}`)
+
+                    enemyTarget.classList.add('highlightedEnemy')
+                    enemyTarget.addEventListener('click', function() {
+                        board[colIdx][rowIdx] = 0
+                        board[colIdx][rowIdx + 1] = 3
+                        turn *= -1
+                    })
+                })
+            }
+
+            if (playerMoved) {
+                break;
+            }
+        }
+
+    }
+        console.log(board)
     })
 }
 
