@@ -119,7 +119,7 @@ function init() {
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
             [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, -3, 0, 0, -1, -3], // 3
+            [3, 1, 0, -4, 0, 0, -1, -3], // 3
             [2, 1, 0, 0, 0, 0, -1, -2], // 4
             [4, 1, 0, 0, 0, 0, -1, -4], // 5
             [5, 1, 0, 0, 0, 0, -1, -5], // 6
@@ -1357,6 +1357,286 @@ function gamePiece() {
                     }
 
                     queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting NORTHEAST
+        if (pieceVal === 4 && turn === 1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare < 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = 4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = 4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting SOUTHEAST
+        if (pieceVal === 4 && turn === 1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare < 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = 4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = 4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting SOUTHWEST
+        if (pieceVal === 4 && turn === 1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break                
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare < 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = 4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = 4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting NORTHWEST
+        if (pieceVal === 4 && turn === 1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare < 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = 4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = 4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
                 }
             }
         }
@@ -3040,6 +3320,286 @@ function gamePiece() {
                     }
 
                     queenMoveEl.addEventListener('click', queenMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting NORTHEAST
+        if (pieceVal === -4 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting SOUTHEAST
+        if (pieceVal === -4 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx + i
+
+                if (nextRowIdx >= 8) break
+                if (nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting SOUTHWEST
+        if (pieceVal === -4 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx - i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break                
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
+                }
+            }
+        }
+
+        // Create WHITE BISHOP movement and targeting NORTHWEST
+        if (pieceVal === -4 && turn === -1) {
+            pieceId.classList.add('highlightedPrimary')
+
+            for (let i = 1; i <= 7; i++) {
+                const nextRowIdx = rowIdx + i
+                const nextColIdx = colIdx - i
+
+                if (nextRowIdx >= 8 || nextRowIdx < 0) break
+                if (nextColIdx < 0 || nextColIdx >= 8) break
+
+                const nextSquare = board[nextColIdx][nextRowIdx]
+
+                if (nextSquare !== 0) {
+                    if (nextSquare > 0) {
+                        const enemyEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                        enemyEl.classList.add('highlightedEnemy')
+
+                        function bishopMoveToEnemy(e) {
+                            e.stopPropagation()
+                            board[colIdx][rowIdx] = 0
+                            board[nextColIdx][nextRowIdx] = -4
+                            turn *= -1
+                            squares.forEach(square => {
+                                square.classList.remove('highlightedSecondary')
+                                square.classList.remove('highlightedEnemy')
+                            })
+                            pieceId.classList.remove('highlightedPrimary')
+                            render()
+                            removeListeners()
+                            return
+                        }
+
+                        listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                            fn: bishopMoveToEnemy,
+                            el: enemyEl
+                        }
+
+                        enemyEl.addEventListener('click', bishopMoveToEnemy, { once: true })
+                    }
+                    break
+                } else {
+                    const bishopMoveEl = document.getElementById(`c${nextColIdx}r${nextRowIdx}`)
+                    bishopMoveEl.classList.add('highlightedSecondary')
+
+                    function bishopMove(e) {
+                        e.stopPropagation()
+                        board[colIdx][rowIdx] = 0
+                        board[nextColIdx][nextRowIdx] = -4
+                        turn *= -1
+                        squares.forEach(square => {
+                            square.classList.remove('highlightedSecondary')
+                            square.classList.remove('highlightedEnemy')
+                        })
+                        pieceId.classList.remove('highlightedPrimary')
+                        render()
+                        removeListeners()
+                        return
+                    }
+
+                    listeners[`c${nextColIdx}r${nextRowIdx}`] = {
+                        fn: bishopMove,
+                        el: bishopMoveEl
+                    }
+
+                    bishopMoveEl.addEventListener('click', bishopMove, { once: true })
                 }
             }
         }
