@@ -806,63 +806,59 @@ function gamePiece() {
 
         // Create WHITE QUEEN movement and targeting NORTH
         if (pieceVal === 3 && turn === 1) {
-            let enemyFound = false
-
-            clearHighlights()
-            pieceId.classList.add('highlightedPrimary')
+            clearHighlights();
+            pieceId.classList.add('highlightedPrimary');
 
             for (let i = 1; i <= 7; i++) {
-                const nextRowIdx = rowIdx + i
+                const nextRowIdx = rowIdx + i;
 
-                if (nextRowIdx >= 8) break
+                if (nextRowIdx >= 8) break; // Check if out of bounds
 
                 const nextSquare = board[colIdx][nextRowIdx];
 
                 if (nextSquare < 0) {
-                    enemyFound = true
-
-                    const enemyEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
-                    enemyEl.classList.add('highlightedEnemy')
+                    const enemyEl = document.getElementById(`c${colIdx}r${nextRowIdx}`);
+                    enemyEl.classList.add('highlightedEnemy');
 
                     function queenMoveToEnemy(e) {
-                        e.stopPropagation()
-                        board[colIdx][rowIdx] = 0
-                        board[colIdx][nextRowIdx] = 3
-                        turn *= -1
+                        e.stopPropagation();
+                        board[colIdx][rowIdx] = 0;
+                        board[colIdx][nextRowIdx] = 3;
+                        turn *= -1;
                         squares.forEach(square => {
-                            square.classList.remove('highlightedSecondary')
-                            square.classList.remove('highlightedEnemy')
+                            square.classList.remove('highlightedSecondary');
+                            square.classList.remove('highlightedEnemy');
                         });
-                        pieceId.classList.remove('highlightedPrimary')
-                        render()
-                        removeListeners()
-                        return
+                        pieceId.classList.remove('highlightedPrimary');
+                        render();
+                        removeListeners();
+                        return;
                     }
 
                     listeners[`c${colIdx}r${nextRowIdx}`] = {
                         fn: queenMoveToEnemy,
                         el: enemyEl
-                    }
+                    };
 
-                    enemyEl.addEventListener('click', queenMoveToEnemy, { once: true })
-                    break
-                } else if (nextSquare === 0) {
-                    const queenMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`)
+                    enemyEl.addEventListener('click', queenMoveToEnemy, { once: true });
+                    break; // Can't move further beyond enemy
+                } else {
+                    const queenMoveEl = document.getElementById(`c${colIdx}r${nextRowIdx}`);
                     queenMoveEl.classList.add('highlightedSecondary');
 
                     function queenMove(e) {
-                        e.stopPropagation()
-                        board[colIdx][rowIdx] = 0
-                        board[colIdx][nextRowIdx] = 3
-                        turn *= -1
+                        e.stopPropagation();
+                        board[colIdx][rowIdx] = 0;
+                        board[colIdx][nextRowIdx] = 3;
+                        turn *= -1;
                         squares.forEach(square => {
-                            square.classList.remove('highlightedSecondary')
-                            square.classList.remove('highlightedEnemy')
-                        })
-                        pieceId.classList.remove('highlightedPrimary')
-                        render()
-                        removeListeners()
-                        return
+                            square.classList.remove('highlightedSecondary');
+                            square.classList.remove('highlightedEnemy');
+                        });
+                        pieceId.classList.remove('highlightedPrimary');
+                        render();
+                        removeListeners();
+                        return;
                     }
 
                     listeners[`c${colIdx}r${nextRowIdx}`] = {
@@ -870,15 +866,8 @@ function gamePiece() {
                         el: queenMoveEl
                     };
 
-                    queenMoveEl.addEventListener('click', queenMove, { once: true })
-                } else {
-                    break
+                    queenMoveEl.addEventListener('click', queenMove, { once: true });
                 }
-            }
-
-            if (!enemyFound) {
-                clearHighlights()
-                pieceId.classList.add('highlightedPrimary')
             }
         }
 
