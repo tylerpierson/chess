@@ -12,7 +12,7 @@ const PLAYERS = {
 }
 
 // Create a PIECES object to store each type of game piece along with their color and image src
-const PIECES = {
+const IMAGES = {
     '1': {img: 'https://i.imgur.com/hAOAJM9.png'}, // White Pawn
     '2': {img: 'https://i.imgur.com/dRJVxWQ.png'}, // White King
     '3': {img: 'https://i.imgur.com/eEf9ra1.png'}, // White Queen
@@ -25,6 +25,15 @@ const PIECES = {
     '-4': {img: 'https://i.imgur.com/vwztxFW.png'}, // Black Bishop
     '-5': {img: 'https://i.imgur.com/FaZ3WKc.png'}, // Black Knight
     '-6': {img: 'https://i.imgur.com/nQX2bU8.png'} // Black Rook
+}
+
+const PIECES = {
+    'pawn': {},
+    'king': {},
+    'queen': {},
+    'bishop': {},
+    'knight': {},
+    'rook': {}
 }
 
 // State Variables
@@ -102,7 +111,7 @@ function renderBoard() {
             cellEl.innerHTML = ``
 
             if (rowVal !== 0) {
-                const piece = PIECES[rowVal.toString()]
+                const piece = IMAGES[rowVal.toString()]
                 const imgEl = document.createElement('img')
                 imgEl.src = piece.img
                 imgEl.style.width = '7rem'
@@ -114,9 +123,9 @@ function renderBoard() {
 }
 
 function clearHighlights() {
-    const highlightedElements = document.querySelectorAll('.highlightedPrimary, .highlightedSecondary')
+    const highlightedElements = document.querySelectorAll('.highlightedPrimary, .highlightedSecondary, .highlightedEnemy')
     highlightedElements.forEach(element => {
-        element.classList.remove('highlightedPrimary', 'highlightedSecondary')
+        element.classList.remove('highlightedPrimary', 'highlightedSecondary', 'highlightedEnemy')
     })
 }
 
