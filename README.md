@@ -52,12 +52,15 @@ Event Listeners
 Set up event listeners for each direction that the White King can move or capture a piece.
 When a valid move or capture is made, update the game state, toggle turns, remove highlights, render the updated board, and remove listeners to prevent further moves until the next turn.
 This code section systematically checks all eight directions around the White King's position on the chessboard, highlighting valid moves or captures and setting up event listeners to execute these actions according to the rules of chess.
+Using very similar logic, apply a similar function to all other white game pieces.
 
 7. I Repeated these steps for the Black Game Pieces as well. I ensured that a negative value was applied to each game piece as well as directional movements for pawns.
 
 8. Invoke the gamePiece function()
 
-9. renderMessage() Function
+9. Create a function that checks for the 'check' or 'checkmate' of the opponents King.
+
+10. renderMessage() Function
 Stalemate Check:
 
 If the winner variable is equal to 'stalemate', set the messageEl content to display "STALEMATE!"

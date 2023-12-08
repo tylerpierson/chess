@@ -27,15 +27,6 @@ const IMAGES = {
     '-6': {img: 'https://i.imgur.com/nQX2bU8.png'} // Black Rook
 }
 
-const PIECES = {
-    'pawn': {},
-    'king': {},
-    'queen': {},
-    'bishop': {},
-    'knight': {},
-    'rook': {}
-}
-
 // State Variables
 let turn // This will determine which players turn it is when the turn variable is either 1 or -1
 let board // This will be a 2d rendering of the game board when creating a board within an array
@@ -43,6 +34,8 @@ let winner // This will be set to null. Player will be determined by either 1, -
 let highlightedPrimarySquare = null
 let secondaryHighlightedSquares = []
 let enemyHighlightedSquares = []
+let playerOneCheck = false
+let playerTwoCheck = false
 
 // Declaration of variables to manipulate within the DOM
 const playAgainBtn = document.querySelector('button')
@@ -67,11 +60,11 @@ function init() {
         //   0  1  2  3  4  5   6   7
             [6, 1, 0, 0, 0, 0, -1, -6], // 0
             [5, 1, 0, 0, 0, 0, -1, -5], // 1
-            [4, 1, 0, 0, 0, 0, -1, -4], // 2
-            [3, 1, 0, 0, 0, 0, -1, -3], // 3
-            [2, 1, 0, 0, 0, 0, -1, -2], // 4
-            [4, 1, 0, 0, 0, 0, -1, -4], // 5
-            [5, 1, 0, 0, 0, 0, -1, -5], // 6
+            [4, 1, 0, -1, 0, 0, -1, -4], // 2
+            [3, 1, 0, 0, -3, 0, -1, -3], // 3
+            [2, 1, 0, -1, 0, 0, -1, -2], // 4
+            [4, 1, -1, 0, 0, 0, -1, -4], // 5
+            [5, 1, 0, -3, 0, 0, -1, -5], // 6
             [6, 1, 0, 0, 0, 0, -1, -6]  // 7
         ]
 
@@ -131,7 +124,6 @@ function clearHighlights() {
 
 const listeners = {}
 
-
 function gamePiece() {
     mainBoard.addEventListener('click', function(evt) {
         const colIndex = evt.target.id.charAt(1)
@@ -141,12 +133,48 @@ function gamePiece() {
 
         const pieceId = document.getElementById(`c${colIdx}r${rowIdx}`)
         const pieceVal = board[colIdx][rowIdx]
-        
 
         function removeListeners() {
             for(let key in listeners) {
                 listeners[key].el.removeEventListener('click', listeners[key].fn)
                 delete listeners[key]
+            }
+        }
+
+        function pawnPlayerTwoCheckingFn() {
+            if(pieceVal === 1 && rowIdx !== 1 && board[colIdx - 1][rowIdx + 2] === -3) {
+                console.log('King is in range - Secondary Left')
+                playerTwoCheck = true
+            } else if(pieceVal === 1 && rowIdx !== 1 && board[colIdx + 1][rowIdx + 2] === -3) {
+                console.log('King is in check - Secondary Right')
+                playerTwoCheck = true
+            }
+
+            if(pieceVal === 1 && rowIdx === 1 && board[colIdx - 1][rowIdx + 3] === -3) {
+                console.log('King is in range - Initial Left')
+                playerTwoCheck = true
+            } else if(pieceVal === 1 && rowIdx === 1 && board[colIdx + 1][rowIdx + 3] === -3) {
+                console.log('King is in check - Initial Right')
+                playerTwoCheck = true
+            }
+
+            if(pieceVal === 1 && rowIdx !== 1 && board[colIdx - 2][rowIdx + 2] === -3) {
+                console.log('King is in range - Secondary Target Left')
+                playerTwoCheck = true
+            } else if(pieceVal === 1 && rowIdx !== 1 && board[colIdx + 2][rowIdx + 2] === -3) {
+                console.log('King is in check - Secondary Target Right')
+                playerTwoCheck = true
+            }
+            render()
+        }
+
+        function exitPawnPlayerTwoCheckingFn() {
+            if(pieceVal === -3) {
+                console.log('left the check')
+                playerTwoCheck = false
+            } else if(pieceVal === -3) {
+                console.log('left the check')
+                playerTwoCheck = false
             }
         }
         
@@ -166,6 +194,7 @@ function gamePiece() {
                 } else {
                     board[colIdx][rowIdx] = 0
                     board[colIdx][rowIdx + 1] = 1
+                    pawnPlayerTwoCheckingFn()
                 }
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
@@ -200,6 +229,7 @@ function gamePiece() {
                             playerMoved = true
                             board[colIdx][rowIdx] = 0
                             board[colIdx][rowIdx + i] = 1
+                            pawnPlayerTwoCheckingFn()
                             turn *= -1
                             squares.forEach(square => {
                                 square.classList.remove('highlightedSecondary')
@@ -216,9 +246,10 @@ function gamePiece() {
 
                 listeners[`c${colIdx}r${rowIdx + i}`] = {}
                 listeners[`c${colIdx}r${rowIdx + i}`].fn = whitePawnInitialMove 
-                listeners[`c${colIdx}r${rowIdx + i}`].el = wPawnInitialMoveEl 
+                listeners[`c${colIdx}r${rowIdx + i}`].el = wPawnInitialMoveEl
+
                 wPawnInitialMoveEl.addEventListener('click', whitePawnInitialMove, { once: true })
-                
+
                 if (playerMoved) {
                     break
                 }
@@ -239,6 +270,7 @@ function gamePiece() {
                 } else {
                     board[colIdx][rowIdx] = 0
                     board[colIdx - 1][rowIdx + 1] = 1
+                    pawnPlayerTwoCheckingFn()
                 }
                 turn *= -1
                 pieceId.classList.remove('highlightedPrimary')
@@ -247,6 +279,7 @@ function gamePiece() {
                     square.classList.remove('highlightedSecondary')
                 })
                 render()
+                removeListeners()
                 return
             }
 
@@ -2560,6 +2593,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2587,6 +2621,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2616,6 +2651,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2644,6 +2680,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2672,6 +2709,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2700,6 +2738,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx + 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2728,6 +2767,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2756,6 +2796,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2784,6 +2825,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2812,6 +2854,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx + 1][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2840,6 +2883,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2868,6 +2912,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2896,6 +2941,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2924,6 +2970,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx - 1] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2952,6 +2999,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedEnemy')
                 pieceId.classList.remove('highlightedPrimary')
@@ -2980,6 +3028,7 @@ function gamePiece() {
                 e.stopPropagation()
                 board[colIdx][rowIdx] = 0
                 board[colIdx - 1][rowIdx] = -2
+                exitPawnPlayerTwoCheckingFn()
                 turn *= -1
                 this.classList.remove('highlightedSecondary')
                 pieceId.classList.remove('highlightedPrimary')
