@@ -266,7 +266,12 @@ function gamePiece() {
 
             function whiteLeftTarget(e) {
                 e.stopPropagation()
-                if(rowIdx + 1 === 7) {
+                if (board[colIdx - 1][rowIdx + 1] === -2) {
+                    board[colIdx][rowIdx] = 0
+                    board[colIdx - 1][rowIdx + 1] = 1
+                    winner = PLAYERS['1']
+                }
+                else if(rowIdx + 1 === 7) {
                     board[colIdx][rowIdx] = 0
                     board[colIdx - 1][rowIdx + 1] = 3
                 } else {

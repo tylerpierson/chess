@@ -78,3 +78,10 @@ renderButton() Function
 Uses a ternary statement to toggle the visibility of the "Play Again" button (playAgainBtn) based on the state of the game:
 If there's no winner (game still ongoing), hide the button (playAgainBtn.style.visibility = 'hidden').
 If there's a winner, show the button (playAgainBtn.style.visibility = 'visible').
+
+![Screenshot 1](https://i.imgur.com/XhwDmii.png)
+![Screenshot 2](https://i.imgur.com/HI8rEgc.png)
+![Screenshot 3](https://i.imgur.com/vto1yVW.png)
+
+When a pawn reaches the opposite end of the game board, it switches the piece automatically to a queen as displayed below.
+![Screenshot 4](https://i.imgur.com/ytCkgDc.png)
