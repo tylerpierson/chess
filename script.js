@@ -1633,7 +1633,6 @@ function gamePiece() {
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length && // Check if the row index is within the board range
             board[colIdx - 2][rowIdx + 1] < 0
         )) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestNorthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
             knightWestNorthTargetEl.classList.add('highlightedEnemy')
@@ -1666,7 +1665,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx - 2][rowIdx + 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestNorthMoveEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
             knightWestNorthMoveEl.classList.add('highlightedSecondary')
@@ -1700,7 +1698,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx - 1][rowIdx + 2] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
             knightNorthWestTargetEl.classList.add('highlightedEnemy')
@@ -1734,7 +1731,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx - 1][rowIdx + 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
             knightNorthWestMoveEl.classList.add('highlightedSecondary')
@@ -1768,7 +1764,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx + 1][rowIdx + 2] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
             knightNorthEastTargetEl.classList.add('highlightedEnemy')
@@ -1802,7 +1797,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx + 1][rowIdx + 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
             knightNorthEastTargetEl.classList.add('highlightedSecondary')
@@ -1836,7 +1830,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx + 2][rowIdx + 1] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastNorthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
             knightEastNorthTargetEl.classList.add('highlightedEnemy')
@@ -1870,7 +1863,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx + 2][rowIdx + 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastNorthMoveEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
             knightEastNorthMoveEl.classList.add('highlightedSecondary')
@@ -1904,7 +1896,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx + 2][rowIdx - 1] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
             knightEastSouthTargetEl.classList.add('highlightedEnemy')
@@ -1937,7 +1928,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx + 2][rowIdx - 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
             knightEastSouthTargetEl.classList.add('highlightedSecondary')
@@ -1971,7 +1961,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx + 1][rowIdx - 2] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
             knightSouthEastTargetEl.classList.add('highlightedEnemy')
@@ -2004,7 +1993,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx + 1][rowIdx - 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
             knightSouthEastTargetEl.classList.add('highlightedSecondary')
@@ -2038,7 +2026,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx - 1][rowIdx - 2] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
             knightSouthWestTargetEl.classList.add('highlightedEnemy')
@@ -2072,7 +2059,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx - 1][rowIdx - 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
             knightSouthWestTargetEl.classList.add('highlightedSecondary')
@@ -2106,7 +2092,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx - 2][rowIdx - 1] < 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
             knightWestSouthTargetEl.classList.add('highlightedEnemy')
@@ -2140,7 +2125,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx - 2][rowIdx - 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
             knightWestSouthTargetEl.classList.add('highlightedSecondary')
@@ -3894,7 +3878,6 @@ function gamePiece() {
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length && // Check if the row index is within the board range
             board[colIdx - 2][rowIdx + 1] > 0
         )) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestNorthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
             knightWestNorthTargetEl.classList.add('highlightedEnemy')
@@ -3927,7 +3910,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx - 2][rowIdx + 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestNorthMoveEl = document.getElementById(`c${colIdx - 2}r${rowIdx + 1}`)
             knightWestNorthMoveEl.classList.add('highlightedSecondary')
@@ -3961,7 +3943,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx - 1][rowIdx + 2] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
             knightNorthWestTargetEl.classList.add('highlightedEnemy')
@@ -3994,7 +3975,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx - 1][rowIdx + 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthWestMoveEl = document.getElementById(`c${colIdx - 1}r${rowIdx + 2}`)
             knightNorthWestMoveEl.classList.add('highlightedSecondary')
@@ -4028,7 +4008,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx + 1][rowIdx + 2] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
             knightNorthEastTargetEl.classList.add('highlightedEnemy')
@@ -4061,7 +4040,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx + 2 >= 0 && rowIdx + 2 < board[0].length &&
             board[colIdx + 1][rowIdx + 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightNorthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx + 2}`)
             knightNorthEastTargetEl.classList.add('highlightedSecondary')
@@ -4095,7 +4073,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx + 2][rowIdx + 1] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastNorthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
             knightEastNorthTargetEl.classList.add('highlightedEnemy')
@@ -4128,7 +4105,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx + 1 >= 0 && rowIdx + 1 < board[0].length &&
             board[colIdx + 2][rowIdx + 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastNorthMoveEl = document.getElementById(`c${colIdx + 2}r${rowIdx + 1}`)
             knightEastNorthMoveEl.classList.add('highlightedSecondary')
@@ -4162,7 +4138,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx + 2][rowIdx - 1] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
             knightEastSouthTargetEl.classList.add('highlightedEnemy')
@@ -4195,7 +4170,6 @@ function gamePiece() {
             colIdx + 2 >= 0 && colIdx + 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx + 2][rowIdx - 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightEastSouthTargetEl = document.getElementById(`c${colIdx + 2}r${rowIdx - 1}`)
             knightEastSouthTargetEl.classList.add('highlightedSecondary')
@@ -4229,7 +4203,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx + 1][rowIdx - 2] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
             knightSouthEastTargetEl.classList.add('highlightedEnemy')
@@ -4262,7 +4235,6 @@ function gamePiece() {
             colIdx + 1 >= 0 && colIdx + 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx + 1][rowIdx - 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthEastTargetEl = document.getElementById(`c${colIdx + 1}r${rowIdx - 2}`)
             knightSouthEastTargetEl.classList.add('highlightedSecondary')
@@ -4296,7 +4268,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx - 1][rowIdx - 2] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
             knightSouthWestTargetEl.classList.add('highlightedEnemy')
@@ -4329,7 +4300,6 @@ function gamePiece() {
             colIdx - 1 >= 0 && colIdx - 1 < board.length &&
             rowIdx - 2 >= 0 && rowIdx - 2 < board[0].length &&
             board[colIdx - 1][rowIdx - 2] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightSouthWestTargetEl = document.getElementById(`c${colIdx - 1}r${rowIdx - 2}`)
             knightSouthWestTargetEl.classList.add('highlightedSecondary')
@@ -4363,7 +4333,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx - 2][rowIdx - 1] > 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
             knightWestSouthTargetEl.classList.add('highlightedEnemy')
@@ -4396,7 +4365,6 @@ function gamePiece() {
             colIdx - 2 >= 0 && colIdx - 2 < board.length &&
             rowIdx - 1 >= 0 && rowIdx - 1 < board[0].length &&
             board[colIdx - 2][rowIdx - 1] === 0) {
-            // clearHighlights()
             pieceId.classList.add('highlightedPrimary')
             const knightWestSouthTargetEl = document.getElementById(`c${colIdx - 2}r${rowIdx - 1}`)
             knightWestSouthTargetEl.classList.add('highlightedSecondary')
