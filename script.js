@@ -36,6 +36,8 @@ let secondaryHighlightedSquares = []
 let enemyHighlightedSquares = []
 let playerOneCheck = false
 let playerTwoCheck = false
+let playerOneCheckmate = false
+let playerTwoCheckmate = false
 
 // Declaration of variables to manipulate within the DOM
 const playAgainBtn = document.querySelector('button')
@@ -4702,6 +4704,14 @@ function gamePiece() {
 }
 
 gamePiece()
+
+function checkmate() {
+    if(playerOneCheckmate === true) {
+        winner = PLAYERS['-1']
+    } else if (playerTwoCheckmate === true) {
+        winner = PLAYERS['1']
+    }
+}
 
 // Create a renderMessage function that will change the messages in the game depending on who's turn it is
 // and who has won (or if there is a stalemate)
